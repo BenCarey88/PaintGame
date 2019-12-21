@@ -13,6 +13,7 @@ export class line {
         this.update();
     }
 
+    //get x and y coordinates from the two pos vectors
     update() {
         this.x1 = this.pos1.x;
         this.x2 = this.pos2.x;
@@ -20,17 +21,20 @@ export class line {
         this.y2 = this.pos2.y;
     }
 
+    //return length of this
     length() {
         var lineVec = this.pos1.minus(this.pos2);
         return lineVec.magnitude();
     }
 
+    //return this translated by vec
     translate(vec) {
         return new line(
             this.pos1.plus(vec), this.pos2.plus(vec)
         );
     }
 
+    //return this rotated by angle about centre (default (0,0))
     rotate(angle, centre) {
         var rot = new rotation(angle);
         if (centre == undefined) {
@@ -43,10 +47,12 @@ export class line {
         return newLine.translate(centre);
     }
 
+    //string representation
     string() {
         return `START: ${this.pos1.string()}; END: ${this.pos2.string()}`;
     }
 
+    //print string representation
     print() {
         print(this.string());
     }

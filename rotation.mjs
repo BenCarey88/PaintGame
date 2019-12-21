@@ -1,4 +1,4 @@
-//Matrix class
+//Rotation class
 
 import {print} from './debugging.mjs';
 import {matrix} from './matrix.mjs'

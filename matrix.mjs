@@ -13,6 +13,7 @@ export class matrix {
         this.d = d;
     }
 
+    //return this + mat
     plus(mat) {
         return new matrix(
             this.a + mat.a,
@@ -22,6 +23,7 @@ export class matrix {
         );
     }
 
+    //return this - mat
     minus(mat) {
         return new matrix(
             this.a - mat.a,
@@ -31,6 +33,7 @@ export class matrix {
         );
     }
 
+    //return -this
     negative() {
         return new matrix(
             -this.a,
@@ -40,7 +43,7 @@ export class matrix {
         );
     }
 
-    //scalar multiplication
+    //return scalar * this
     sMult(scalar) {
         return new matrix(
             scalar * this.a,
@@ -50,7 +53,7 @@ export class matrix {
         );
     }
 
-    //vector multiplication
+    //return this * vec
     vMult(vec) {
         return new vector(
             this.a * vec.x + this.b * vec.y,
@@ -58,7 +61,7 @@ export class matrix {
         );
     }
 
-    //matrix multiplication
+    //return this * mat
     mMult(mat) {
         return new matrix(
             this.a * mat.a + this.b * mat.c,
@@ -68,10 +71,12 @@ export class matrix {
         );
     }
 
+    //return determinant of this
     det() {
         return this.a * this.d - this.b * this.c;
     }
 
+    //return inverse of this
     inverse() {
         if (this.det() != 0) {
             var cofactorMat = new matrix(
@@ -84,10 +89,12 @@ export class matrix {
         }
     }
 
+    //string representation
     string() {
         return `|${this.a}, ${this.b}| <br/> |${this.c}, ${this.d}|`;
     }
 
+    //print string representation
     print() {
         print(this.string());
     }
