@@ -169,14 +169,35 @@
 //     }
 // }
 
-import {print} from './debugging.mjs';
+import {print, newLine} from './debugging.mjs';
 import {vector} from './vector.mjs';
+import {matrix} from './matrix.mjs';
+import {rotation} from './rotation.mjs';
 import {line} from './line.mjs';
-
-print("hello")
 
 var pos1 = new vector(1,1);
 var pos2 = new vector(2,2);
 var line1 = new line(pos1, pos2);
 
 print(line1.length());
+
+var mat1 = new matrix(1,2,1,1);
+var pos3 = mat1.inverse().vMult(pos1);
+
+mat1.print()
+
+var rot = new rotation(4);
+
+line1.print()
+pos3.print()
+print(pos3.x);
+print(pos3.y);
+print(mat1.det());
+
+rot.mMult(mat1).print()
+
+newLine();
+newLine();
+
+line1.print();
+line1.rotate(-Math.PI/2).print();
