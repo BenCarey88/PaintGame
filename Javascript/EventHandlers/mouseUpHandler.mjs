@@ -3,7 +3,7 @@
 import {print, newLine} from '../Classes/debugging.mjs';
 
 function mouseUp(event, screen) {
-
+    screen.clicked = false;
 }
 
 export function mouseUpHandler(screen) {

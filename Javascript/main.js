@@ -175,7 +175,8 @@ import {Vector} from './Classes/vector.mjs';
 import {Matrix} from './Classes/matrix.mjs';
 import {Rotation} from './Classes/rotation.mjs';
 import {Line} from './Classes/line.mjs';
-import {Screen} from './EventHandlers/screen.js';
+import {Screen} from './screen.js';
+
 
 var pos1 = new Vector(1,1);
 var pos2 = new Vector(2,2);
@@ -185,7 +186,6 @@ print(line1.length());
 
 var mat1 = new Matrix(1,2,1,1);
 
-mat1.print()
 var pos3 = mat1.inverse().vMult(pos1);
 
 mat1.print()
@@ -207,6 +207,7 @@ line1.print();
 line1.rotate(-Math.PI/2).print();
 
 var screen = new Screen();
-screen.init(document);
+screen.init();
+screen.run();
 
 print("sfdghjkl;");
