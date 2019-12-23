@@ -9,12 +9,12 @@ function mouseMove(event, screen) {
         event.clientX - screen.canvas.offsetLeft,
         event.clientY - screen.canvas.offsetTop
     );
-    if (screen.clicked) {
+    if (screen.clicked && screen.pos2.minus(screen.pos1).magnitude()>20) {
         screen.lines.push(
             new Line(screen.pos1, screen.pos2)
         );
+        screen.pos1 = screen.pos2;
     }
-    screen.pos1 = screen.pos2;
 }
 
 //mouseMoveHandler(screen)(event) = mouseMove(event, screen)

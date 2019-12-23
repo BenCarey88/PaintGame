@@ -21,33 +21,38 @@ export class Screen {
 
     // add event listeners to screen
     init() {
-        document.addEventListener("mousedown", mouseDownHandler(this), false);
-        document.addEventListener("mouseup", mouseUpHandler(this), false);
-        document.addEventListener("mousemove", mouseMoveHandler(this), false);
+        this.canvas.addEventListener("mousedown", mouseDownHandler(this), false);
+        this.canvas.addEventListener("mouseup", mouseUpHandler(this), false);
+        this.canvas.addEventListener("mousemove", mouseMoveHandler(this), false);
     }
 
     draw(spacing, width) {
         for(var i=0; i<this.lines.length; i++) {
-            line = this.lines[i];
-            var length = line.length();
-            for (j=0; j<length/spacing; j++){
-                var increment = (spacing*i)/length;
+            var line = this.lines[i];
+            //var length = line.length();
+            //for (var j=0; j<length/spacing; j++){
+                // var increment = (spacing*i)/length;
+                // this.ctx.beginPath();
+                // this.ctx.arc(
+                //     line.x1 + increment * (line.x2 - line.x1),
+                //     line.y1 + increment * (line.y2 - line.y1),
+                //     width/2, 0, 2 * Math.PI
+                // );
+                // this.ctx.fill();
+                // this.ctx.closePath();
+
                 this.ctx.beginPath();
-                this.ctx.arc(
-                    line.x1 + increment * (line.x2 - line.x1),
-                    line.y1 + increment * (line.y2 - line.y1),
-                    width/2, 0, 2 * Math.PI
-                );
-                this.ctx.fill();
+                this.ctx.moveTo(line.x1, line.y1);
+                this.ctx.lineTo(line.x2, line.y2);
+                this.ctx.stroke();
                 this.ctx.closePath();
-            }
-            print("GBHJKLKJHVHJK");
+            //}
         }
     }
     
     run() {
         this.draw(5, 5);
-	    requestAnimationFrame(this.run);
+	    requestAnimationFrame(()=>this.run());
     }
 
 }

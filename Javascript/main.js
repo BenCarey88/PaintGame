@@ -208,6 +208,12 @@ line1.rotate(-Math.PI/2).print();
 
 var screen = new Screen();
 screen.init();
+
+// function game() {
+//     screen.draw(5,5)
+//     requestAnimationFrame(game);
+// }
+// game();
 screen.run();
 
 print("sfdghjkl;");
