@@ -1,10 +1,10 @@
 //Line class
 
 import {print} from './debugging.mjs';
-import {vector} from './vector.mjs';
-import {rotation} from './rotation.mjs';
+import {Vector} from './vector.mjs';
+import {Rotation} from './rotation.mjs';
 
-export class line {
+export class Line {
 
     //construct line from two position vectors
     constructor(pos1, pos2) {
@@ -29,19 +29,19 @@ export class line {
 
     //return this translated by vec
     translate(vec) {
-        return new line(
+        return new Line(
             this.pos1.plus(vec), this.pos2.plus(vec)
         );
     }
 
     //return this rotated by angle about centre (default (0,0))
     rotate(angle, centre) {
-        var rot = new rotation(angle);
+        var rot = new Rotation(angle);
         if (centre == undefined) {
-            centre = new vector(0, 0);
+            centre = new Vector(0, 0);
         }
         var newLine = this.translate(centre.negative());
-        newLine = new line(
+        newLine = new Line(
             rot.vMult(newLine.pos1), rot.vMult(newLine.pos2)
         );
         return newLine.translate(centre);

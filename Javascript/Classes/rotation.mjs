@@ -1,9 +1,9 @@
 //Rotation class
 
 import {print} from './debugging.mjs';
-import {matrix} from './matrix.mjs'
+import {Matrix} from './matrix.mjs'
 
-export class rotation extends matrix {
+export class Rotation extends Matrix {
 
     //construct matrix from rotation angle
     constructor(angle) {

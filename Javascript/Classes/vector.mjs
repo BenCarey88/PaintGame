@@ -2,7 +2,7 @@
 
 import {print} from './debugging.mjs';
 
-export class vector {
+export class Vector {
     
     //construct vector from x, y components
     constructor(x, y) {
@@ -17,22 +17,22 @@ export class vector {
 
     //return this + vec
     plus(vec) {
-        return new vector(this.x + vec.x, this.y + vec.y);
+        return new Vector(this.x + vec.x, this.y + vec.y);
     }
 
     //return this - vec
     minus(vec) {
-        return new vector(this.x - vec.x, this.y - vec.y);
+        return new Vector(this.x - vec.x, this.y - vec.y);
     }
 
     //return -this
     negative() {
-        return new vector(-this.x, -this.y);
+        return new Vector(-this.x, -this.y);
     }
 
     //return scalar * this
     sMult(scalar) {
-        return new vector(scalar * this.x, scalar * this.y);
+        return new Vector(scalar * this.x, scalar * this.y);
     }
 
     //return dot product of this with vec

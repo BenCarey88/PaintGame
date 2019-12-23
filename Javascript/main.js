@@ -2,7 +2,7 @@
 
 // var controlPanel = document.getElementById("controlPanel");
 // var ctxTop = controlPanel.getContext("2d");
-// var canvas = document.getElementById("myCanvas");		
+// var canvas = document.getElementById("myCanvas");
 // var ctx = canvas.getContext("2d");
 
 // var clicked = false;
@@ -169,24 +169,28 @@
 //     }
 // }
 
-import {print, newLine} from './debugging.mjs';
-import {vector} from './vector.mjs';
-import {matrix} from './matrix.mjs';
-import {rotation} from './rotation.mjs';
-import {line} from './line.mjs';
+import {print, newLine} from './Classes/debugging.mjs';
 
-var pos1 = new vector(1,1);
-var pos2 = new vector(2,2);
-var line1 = new line(pos1, pos2);
+import {Vector} from './Classes/vector.mjs';
+import {Matrix} from './Classes/matrix.mjs';
+import {Rotation} from './Classes/rotation.mjs';
+import {Line} from './Classes/line.mjs';
+import {Screen} from './EventHandlers/screen.js';
+
+var pos1 = new Vector(1,1);
+var pos2 = new Vector(2,2);
+var line1 = new Line(pos1, pos2);
 
 print(line1.length());
 
-var mat1 = new matrix(1,2,1,1);
+var mat1 = new Matrix(1,2,1,1);
+
+mat1.print()
 var pos3 = mat1.inverse().vMult(pos1);
 
 mat1.print()
 
-var rot = new rotation(4);
+var rot = new Rotation(4);
 
 line1.print()
 pos3.print()
@@ -201,3 +205,8 @@ newLine();
 
 line1.print();
 line1.rotate(-Math.PI/2).print();
+
+var screen = new Screen();
+screen.init(document);
+
+print("sfdghjkl;");

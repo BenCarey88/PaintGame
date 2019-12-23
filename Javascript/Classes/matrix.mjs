@@ -1,9 +1,9 @@
 //Matrix class
 
 import {print} from './debugging.mjs';
-import {vector} from './vector.mjs';
+import {Vector} from './vector.mjs';
 
-export class matrix {
+export class Matrix {
 
     //construct matrix from 4 floats
     constructor(a, b, c, d) {
@@ -15,7 +15,7 @@ export class matrix {
 
     //return this + mat
     plus(mat) {
-        return new matrix(
+        return new Matrix(
             this.a + mat.a,
             this.b + mat.b,
             this.c + mat.c,
@@ -25,7 +25,7 @@ export class matrix {
 
     //return this - mat
     minus(mat) {
-        return new matrix(
+        return new Matrix(
             this.a - mat.a,
             this.b - mat.b,
             this.c - mat.c,
@@ -35,7 +35,7 @@ export class matrix {
 
     //return -this
     negative() {
-        return new matrix(
+        return new Matrix(
             -this.a,
             -this.b,
             -this.c,
@@ -45,7 +45,7 @@ export class matrix {
 
     //return scalar * this
     sMult(scalar) {
-        return new matrix(
+        return new Matrix(
             scalar * this.a,
             scalar * this.b,
             scalar * this.c,
@@ -55,7 +55,7 @@ export class matrix {
 
     //return this * vec
     vMult(vec) {
-        return new vector(
+        return new Vector(
             this.a * vec.x + this.b * vec.y,
             this.c * vec.x + this.d * vec.y
         );
@@ -63,7 +63,7 @@ export class matrix {
 
     //return this * mat
     mMult(mat) {
-        return new matrix(
+        return new Matrix(
             this.a * mat.a + this.b * mat.c,
             this.a * mat.b + this.b * mat.d,
             this.c * mat.a + this.d * mat.c,
@@ -79,7 +79,7 @@ export class matrix {
     //return inverse of this
     inverse() {
         if (this.det() != 0) {
-            var cofactorMat = new matrix(
+            var cofactorMat = new Matrix(
                 this.d, -this.b, -this.c, this.a
             );
             return cofactorMat.sMult(1/this.det());
