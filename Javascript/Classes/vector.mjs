@@ -20,6 +20,12 @@ export class Vector {
         return new Vector(this.x + vec.x, this.y + vec.y);
     }
 
+    //this += vec
+    plusEq(vec) {
+        this.x += vec.x;
+        this.y += vec.y;
+    }
+
     //return this - vec
     minus(vec) {
         return new Vector(this.x - vec.x, this.y - vec.y);

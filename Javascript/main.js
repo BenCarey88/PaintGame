@@ -171,10 +171,13 @@
 
 import {print, newLine} from './Classes/debugging.mjs';
 
+print("TEST");
+
 import {Vector} from './Classes/vector.mjs';
 import {Matrix} from './Classes/matrix.mjs';
 import {Rotation} from './Classes/rotation.mjs';
 import {Line} from './Classes/line.mjs';
+
 import {Screen} from './screen.js';
 
 
@@ -209,11 +212,8 @@ line1.rotate(-Math.PI/2).print();
 var screen = new Screen();
 screen.init();
 
-// function game() {
-//     screen.draw(5,5)
-//     requestAnimationFrame(game);
-// }
-// game();
 screen.run();
 
 print("sfdghjkl;");
+
+//TO DO: add plus-equals to all classes

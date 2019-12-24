@@ -1,22 +1,31 @@
-//Screen class containing states
+//Screen class containing game global states
 
 import {print, newLine} from './Classes/debugging.mjs';
-import {Vector} from './Classes/vector.mjs'
+import {Vector} from './Classes/vector.mjs';
+import {Character} from './Character/character.mjs';
 
 import {mouseDownHandler} from './EventHandlers/mouseDownHandler.mjs';
 import {mouseMoveHandler} from './EventHandlers/mouseMoveHandler.mjs';
 import {mouseUpHandler} from './EventHandlers/mouseUpHandler.mjs';
 
+import {paintLines} from './Display/paint.mjs';
+import {displayCharacter} from './Display/character.mjs';
+
 export class Screen {
 
+    // initialise screen attributes on construction
     constructor() {
+        this.canvas = document.getElementById("myCanvas");
+        this.ctx = this.canvas.getContext("2d");
+
         this.oldPos = new Vector(0, 0);
         this.newPos = new Vector(0, 0);
         this.clicked = false;
-        this.canvas = document.getElementById("myCanvas");
-        this.ctx = this.canvas.getContext("2d");
         
+        this.character = new Character(50, 50);
+
         this.lines = [];
+        this.lineWidth = 20;
     }
 
     // add event listeners to screen
@@ -26,32 +35,17 @@ export class Screen {
         this.canvas.addEventListener("mousemove", mouseMoveHandler(this), false);
     }
 
-    draw(spacing, width) {
-        for(var i=0; i<this.lines.length; i++) {
-            var line = this.lines[i];
-            //var length = line.length();
-            //for (var j=0; j<length/spacing; j++){
-                // var increment = (spacing*i)/length;
-                // this.ctx.beginPath();
-                // this.ctx.arc(
-                //     line.x1 + increment * (line.x2 - line.x1),
-                //     line.y1 + increment * (line.y2 - line.y1),
-                //     width/2, 0, 2 * Math.PI
-                // );
-                // this.ctx.fill();
-                // this.ctx.closePath();
-
-                this.ctx.beginPath();
-                this.ctx.moveTo(line.x1, line.y1);
-                this.ctx.lineTo(line.x2, line.y2);
-                this.ctx.stroke();
-                this.ctx.closePath();
-            //}
-        }
+    // display game
+    display() {
+        this.ctx.clearRect(0, 0, this.canvas.clientWidth, this.canvas.height);
+        displayCharacter(this);
+        paintLines(this);
     }
-    
+
+    // run game with requestAnimationFrame
     run() {
-        this.draw(5, 5);
+        this.character.move();
+        this.display();
 	    requestAnimationFrame(()=>this.run());
     }
 
