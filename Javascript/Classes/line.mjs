@@ -27,6 +27,21 @@ export class Line {
         return lineVec.magnitude();
     }
 
+    //return centre of line
+    centre() {
+        return new Vector(
+            (this.x1 + this.x2) * 0.5,
+            (this.y1 + this.y2) * 0.5
+        );
+    }
+
+    //return angle of elevation of line
+    elevation() {
+        return Math.atan2(
+            this.y2 - this.y1, this.x2 - this.x1
+        );
+    }
+
     //return this translated by vec
     translate(vec) {
         return new Line(
@@ -34,11 +49,11 @@ export class Line {
         );
     }
 
-    //return this rotated by angle about centre (default (0,0))
+    //return this rotated by angle about centre (default line centre)
     rotate(angle, centre) {
         var rot = new Rotation(angle);
         if (centre == undefined) {
-            centre = new Vector(0, 0);
+            centre = this.centre();
         }
         var newLine = this.translate(centre.negative());
         newLine = new Line(

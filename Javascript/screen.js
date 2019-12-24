@@ -10,6 +10,7 @@ import {mouseUpHandler} from './EventHandlers/mouseUpHandler.mjs';
 
 import {paintLines} from './Display/paint.mjs';
 import {displayCharacter} from './Display/character.mjs';
+import {moveCharacter} from './Character/movement.mjs';
 
 export class Screen {
 
@@ -35,16 +36,21 @@ export class Screen {
         this.canvas.addEventListener("mousemove", mouseMoveHandler(this), false);
     }
 
+    // game movement
+    movement() {
+        moveCharacter(this);
+    } 
+
     // display game
     display() {
-        this.ctx.clearRect(0, 0, this.canvas.clientWidth, this.canvas.height);
+        this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
         displayCharacter(this);
         paintLines(this);
     }
 
     // run game with requestAnimationFrame
     run() {
-        this.character.move();
+        this.movement();
         this.display();
 	    requestAnimationFrame(()=>this.run());
     }

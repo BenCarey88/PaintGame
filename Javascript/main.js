@@ -216,4 +216,9 @@ screen.run();
 
 print("sfdghjkl;");
 
-//TO DO: add plus-equals to all classes
+//TO DO: 
+//-add plus-equals to all classes
+//-change directory structure for movement functions and character 
+    //(given that it all needs to interact with whole scene, 
+    //pretty much all the character functions should be at scene level)
+//fix line rotation stuff
