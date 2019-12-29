@@ -11,6 +11,7 @@ export class Line {
         this.pos1 = pos1;
         this.pos2 = pos2;
         this.update();
+        this.width = 20;
     }
 
     //get x and y coordinates from the two pos vectors

@@ -9,7 +9,8 @@ export function displayCharacter(screen) {
     screen.ctx.arc(
         screen.character.pos.x,
         screen.character.pos.y,
-        30, 0, 2 * Math.PI
+        screen.character.rad,
+        0, 2 * Math.PI
     );
     screen.ctx.fill();
     screen.ctx.closePath();

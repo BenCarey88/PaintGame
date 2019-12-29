@@ -10,6 +10,7 @@ import {mouseUpHandler} from './EventHandlers/mouseUpHandler.mjs';
 
 import {paintLines} from './Display/paint.mjs';
 import {displayCharacter} from './Display/character.mjs';
+
 import {moveCharacter} from './Character/movement.mjs';
 
 export class Screen {
@@ -26,7 +27,6 @@ export class Screen {
         this.character = new Character(50, 50);
 
         this.lines = [];
-        this.lineWidth = 20;
     }
 
     // add event listeners to screen
