@@ -11,7 +11,9 @@ export class Character {
         this.pos = new Vector(x, y);
         this.vel = new Vector(vx, vy);
         this.acc = new Vector(ax, ay);
+        
         this.rad = 30;
+        this.forces = [];
     }
 
     rotate(angle, centre) {

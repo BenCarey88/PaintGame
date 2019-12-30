@@ -63,10 +63,21 @@ export class Vector {
         return this.x * vec.x + this.y * vec.y;
     }
 
-    //set component of this along dir to zero (ie. take the perpendicular component)
+    //return vector orthogonal (perpendicular) to this
+    orthog() {
+        return new Vector(this.y, -this.x);
+    }
+
+    //return component of this along direction
+    getComponent(direction) {
+        var dir = direction.unit();
+        return dir.sMult(this.dot(dir));
+    }
+
+    //set component of this along direction to zero (ie. take the perpendicular component)
     setComponentToZero(direction) {
         var dir = direction.unit();
-        var perp = new Vector(dir.y, -dir.x);
+        var perp = dir.orthog();
         var multiplier = this.dot(perp);
         var result = perp.sMult(multiplier);
         this.x = result.x;

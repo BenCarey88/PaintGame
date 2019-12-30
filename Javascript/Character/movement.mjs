@@ -4,41 +4,14 @@ import {print, newLine} from '../Classes/debugging.mjs';
 import {Vector} from '../Classes/vector.mjs';
 import {Rotation} from '../Classes/rotation.mjs';
 
-function applyGravity(screen) {
-    screen.character.acc.y = 0.1;
+function applyForces(screen) {
+    var character = screen.character;
+    character.acc = new Vector(0, 0.1);
+    for (var i=0; i<character.forces.length; i++) {
+        character.acc.plusEq(character.forces[i]);
+    }
+    character.forces = [];
 }
-
-// function charIntersectsLine(screen, character, line) {
-    
-//     var rotChar = character.rotate(-line.elevation(), line.centre());
-//     var rotLine = line.rotate(-line.elevation(), line.centre());
-
-//     return(
-//          rotChar.pos.x + 30 > rotLine.x1 - 10 &&
-//          rotChar.pos.x - 30 < rotLine.x2 + 10 &&
-//          rotChar.pos.y + 30 > rotLine.y1 - 10 &&
-//          rotChar.pos.y - 30 < rotLine.y2 + 10
-//     )
-
-//     return(
-//         character.pos.x > line.x1 - 10 && character.pos.x < line.x2 + 10 &&
-//         character.pos.y > line.y1 - 10 && character.pos.y < line.y2 + 10
-//     )
-// }
-
-
-// function intersection(screen) {
-//     var result = false;
-//     screen.linesTemp = [];
-//     for(var i=0; i<screen.lines.length; i++) {
-//         var line = screen.lines[i];
-//         if(charIntersectsLine(screen, screen.character, line)){
-//             result = true;
-//             break;
-//         }
-//     }
-//     return result;
-// }
 
 function findIntersection(character, line) {
     var intersection = false;
@@ -101,55 +74,54 @@ function findIntersection(character, line) {
 function collisonDetection(screen) {
     var character = screen.character;
     var vel = character.vel;
+    var perpVel = vel.orthog();
     var pos = character.pos;
+
     //in case there are multiple intersections, use dotProdCompare to determine
     //which is furthest along direction of travel, and then use that one
     var dotProductCompare = 0;
+    //unless there are intersections to the right and left of the velocity,
+    //in which case the ball should be stopped
+    var intersectionToLeft = false;
+    var intersectionToRight = false;
+    //perpLine stores the vector perpendicular to the line of intersection
+    //if intersection occurs, otherwise it is false
     var perpLine = false;
-    var perpLineList = [];
+    
     for(var i=0; i<screen.lines.length; i++) {
         var line = screen.lines[i];
         var intersection = findIntersection(character, line);
         if (intersection) {
-            //var perpLine = intersection.minus(pos);
-            //vel.setComponentToZero(perpLine);
-            var dotProduct = vel.dot(intersection.minus(pos));
-            perpLineList.push(intersection.minus(pos));
+            
+            var tempPerpLine = intersection.minus(pos);
+            var dotProduct = vel.dot(tempPerpLine);
+
+            if(tempPerpLine.dot(perpVel) > 0) {
+                intersectionToRight = true;
+            }
+            else {
+                intersectionToLeft = true;
+            }
+
             if (dotProduct > dotProductCompare) {
                 dotProductCompare = dotProduct;
-                //vector perpendicular to line:
-                perpLine = intersection.minus(pos);
+                perpLine = tempPerpLine;
             }
         }
     }
-    var stopMoving = false;
-    for(var i=0; i<perpLineList.length; i++) {
-        var v = perpLineList[i];
-        for(var j=0; j<i; j++) {
-            var u = perpLineList[j];
-            if(u.dot(v) < 0) {
-                stopMoving = true;
-                break;
-            }
-        }
+    if (intersectionToLeft && intersectionToRight) {
+        perpLine = vel;
     }
-    if(stopMoving) {
-        vel.x = 0;
-        vel.y = 0;
-        print("stop moving");
-    }
-    else if(perpLine) {
-        vel.setComponentToZero(perpLine);
+    if(perpLine) {
+        vel.minusEq(vel.getComponent(perpLine).sMult(1 + screen.coe));
+        //vel.setComponentToZero(perpLine);
     }
 }
 
 export function moveCharacter(screen) {
-    applyGravity(screen);
+    applyForces(screen);
     var character = screen.character;
     character.vel.plusEq(character.acc);
     collisonDetection(screen);
-    // if(intersection(screen)){
-    //     character.vel = new Vector(0, 0);
-    // }
     character.pos.plusEq(character.vel);
 }
