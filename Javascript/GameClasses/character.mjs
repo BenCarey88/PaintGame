@@ -1,8 +1,8 @@
 //character class for player character
 
-import {print, newLine} from '../Classes/debugging.mjs';
-import {Vector} from '../Classes/vector.mjs';
-import {Rotation} from '../Classes/rotation.mjs';
+import {print, newLine} from '../Utils/debugging.mjs';
+import {Vector} from '../Utils/vector.mjs';
+import {Rotation} from '../Utils/rotation.mjs';
 
 export class Character {
 
@@ -13,7 +13,14 @@ export class Character {
         this.acc = new Vector(ax, ay);
         
         this.rad = 30;
-        this.forces = [];
+        this.moveStrength = 3;
+        this.jumpStrength = 10;
+        this.canJump = false;
+        this.maxVel = 8;
+
+        this.rightForce = 0;
+        this.leftForce = 0;
+        this.upForce = 0;
     }
 
     rotate(angle, centre) {

@@ -169,14 +169,14 @@
 //     }
 // }
 
-import {print, newLine} from './Classes/debugging.mjs';
+import {print, newLine} from './Utils/debugging.mjs';
 
 print("TEST");
 
-import {Vector} from './Classes/vector.mjs';
-import {Matrix} from './Classes/matrix.mjs';
-import {Rotation} from './Classes/rotation.mjs';
-import {Line} from './Classes/line.mjs';
+import {Vector} from './Utils/vector.mjs';
+import {Matrix} from './Utils/matrix.mjs';
+import {Rotation} from './Utils/rotation.mjs';
+import {Line} from './Utils/line.mjs';
 
 import {Screen} from './screen.js';
 

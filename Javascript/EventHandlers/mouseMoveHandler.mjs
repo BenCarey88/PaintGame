@@ -1,18 +1,21 @@
 //functions to apply on mouse move event
 
-import {print, newLine} from '../Classes/debugging.mjs';
-import {Vector} from '../Classes/vector.mjs';
-import {Line} from '../Classes/line.mjs';
+import {print, newLine} from '../Utils/debugging.mjs';
+import {Vector} from '../Utils/vector.mjs';
+import {Line} from '../Utils/line.mjs';
+
+import {isInside} from '../Movement/collisionDetection.mjs';
 
 function mouseMove(event, screen) {
     screen.pos2 = new Vector(
         event.clientX - screen.canvas.offsetLeft,
         event.clientY - screen.canvas.offsetTop
     );
-    if (screen.clicked && screen.pos2.minus(screen.pos1).magnitude()>20) {
-        screen.lines.push(
-            new Line(screen.pos1, screen.pos2)
-        );
+    var line = new Line(screen.pos1, screen.pos2);
+    if (screen.clicked && line.length()>screen.minLineLength) {
+        if(!isInside(screen.character, line)) {
+            screen.lines.push(line);
+        }
         screen.pos1 = screen.pos2;
     }
 }

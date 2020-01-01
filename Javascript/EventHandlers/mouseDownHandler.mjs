@@ -1,7 +1,7 @@
 //functions to apply on mouse down event
 
-import {print, newLine} from '../Classes/debugging.mjs';
-import {Vector} from '../Classes/vector.mjs';
+import {print, newLine} from '../Utils/debugging.mjs';
+import {Vector} from '../Utils/vector.mjs';
 
 function mouseDown(event, screen) {
     screen.clicked = true;
@@ -11,6 +11,7 @@ function mouseDown(event, screen) {
     );
 }
 
+//mouseDownHandler(screen)(event) = mouseDown(event, screen)
 export function mouseDownHandler(screen) {
     function eventHandler(event) {
         mouseDown(event, screen)

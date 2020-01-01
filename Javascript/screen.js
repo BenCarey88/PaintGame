@@ -1,11 +1,11 @@
 //Screen class containing game global states
 
-import {print, newLine} from './Classes/debugging.mjs';
-import {Vector} from './Classes/vector.mjs';
-import {Line} from './Classes/line.mjs';
+import {print, newLine} from './Utils/debugging.mjs';
+import {Vector} from './Utils/vector.mjs';
+import {Line} from './Utils/line.mjs';
 
-import {Character} from './Character/character.mjs';
-import {moveCharacter} from './Character/movement.mjs';
+import {Character} from './GameClasses/character.mjs';
+import {moveCharacter} from './Movement/characterMovement.mjs';
 
 import {mouseDownHandler} from './EventHandlers/mouseDownHandler.mjs';
 import {mouseMoveHandler} from './EventHandlers/mouseMoveHandler.mjs';
@@ -25,8 +25,8 @@ export class Screen {
         this.width = this.canvas.width;
         this.height = this.canvas.height;
 
-        this.oldPos = new Vector(0, 0);
-        this.newPos = new Vector(0, 0);
+        this.pos1 = new Vector(0, 0);
+        this.pos2 = new Vector(0, 0);
         this.clicked = false;
         
         this.character = new Character(50, 50);
@@ -38,6 +38,7 @@ export class Screen {
         this.lines = [
             new Line(bottomLeft, bottomRight)
         ];
+        this.minLineLength = 20;
         //for now the screen has a coefficient of elasticity - later I'll make
         //this a property of individual lines
         this.coe = 0.3;

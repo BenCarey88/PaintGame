@@ -1,7 +1,7 @@
 //functions for displaying character class
 
-import {print, newLine} from '../Classes/debugging.mjs';
-import {Vector} from '../Classes/vector.mjs';
+import {print, newLine} from '../Utils/debugging.mjs';
+import {Vector} from '../Utils/vector.mjs';
 
 export function displayCharacter(screen) {
     screen.ctx.fillStyle = "blue";
