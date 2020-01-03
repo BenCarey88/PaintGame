@@ -99,7 +99,7 @@ export function canJump(character, line, tol=10) {
     line = line.rotate(-angle, pivot);
     var pos = character.pos;
     var rad = character.rad;
-    var width = line.width/2 - 1;
+    var width = line.width/2;
 
     var intersectVertical = (
         pos.x > line.x1 &&
@@ -114,6 +114,31 @@ export function canJump(character, line, tol=10) {
     var rightVec = line.pos2.minus(pos);
     var intersectRight = (
         rightVec.magnitude() < rad + width + tol
+    );
+
+    return intersectVertical || intersectLeft || intersectRight;
+}
+
+//return true if point is inside line
+export function isPointInside(point, line) {
+    var angle = line.elevation();
+    var pivot = line.centre();
+    line = line.rotate(-angle, pivot);
+    var width = line.width/2;
+
+    var intersectVertical = (
+        point.x > line.x1 &&
+        point.x < line.x2 &&
+        point.y > line.y1 - width &&
+        point.y < line.y1 + width
+    );
+    var leftVec = line.pos1.minus(point);
+    var intersectLeft = (
+        leftVec.magnitude() < width
+    );
+    var rightVec = line.pos2.minus(point);
+    var intersectRight = (
+        rightVec.magnitude() < width
     );
 
     return intersectVertical || intersectLeft || intersectRight;

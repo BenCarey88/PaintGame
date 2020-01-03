@@ -1,20 +1,12 @@
 //Screen class containing game global states
 
 import {print, newLine} from './Utils/debugging.mjs';
-import {Vector} from './Utils/vector.mjs';
-import {Line} from './Utils/line.mjs';
+import {Vector, Line} from './Utils/index.mjs';
+import {Character} from './GameClasses/index.mjs';
+import {moveCharacter} from './Movement/index.mjs';
+import {mouseDown, mouseMove, mouseUp, keyDown, keyUp} from './EventHandlers/index.mjs';
+import {paintLines, displayCharacter} from './Display/index.mjs';
 
-import {Character} from './GameClasses/character.mjs';
-import {moveCharacter} from './Movement/characterMovement.mjs';
-
-import {mouseDownHandler} from './EventHandlers/mouseDownHandler.mjs';
-import {mouseMoveHandler} from './EventHandlers/mouseMoveHandler.mjs';
-import {mouseUpHandler} from './EventHandlers/mouseUpHandler.mjs';
-import {keyDownHandler} from './EventHandlers/keyDownHandler.mjs';
-import {keyUpHandler} from './EventHandlers/keyUpHandler.mjs';
-
-import {paintLines} from './Display/paint.mjs';
-import {displayCharacter} from './Display/character.mjs';
 
 export class Screen {
 
@@ -39,18 +31,26 @@ export class Screen {
             new Line(bottomLeft, bottomRight)
         ];
         this.minLineLength = 20;
+
         //for now the screen has a coefficient of elasticity - later I'll make
         //this a property of individual lines
         this.coe = 0.3;
+
+        this.drawMode = "DRAW";
+    }
+
+    //make event handlers usable by this class
+    handler(eventHandler) {
+        return event=>eventHandler(event, this);
     }
 
     // add event listeners to screen
     init() {
-        this.canvas.addEventListener("mousedown", mouseDownHandler(this), false);
-        this.canvas.addEventListener("mouseup", mouseUpHandler(this), false);
-        this.canvas.addEventListener("mousemove", mouseMoveHandler(this), false);
-        document.addEventListener("keydown", keyDownHandler(this), false);
-        document.addEventListener("keyup", keyUpHandler(this), false);
+        this.canvas.addEventListener("mousedown", this.handler(mouseDown), false);
+        this.canvas.addEventListener("mouseup", this.handler(mouseUp), false);
+        this.canvas.addEventListener("mousemove", this.handler(mouseMove), false);
+        document.addEventListener("keydown", this.handler(keyDown), false);
+        document.addEventListener("keyup", this.handler(keyUp), false);
     }
 
     // game movement
