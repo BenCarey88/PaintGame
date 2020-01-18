@@ -5,18 +5,9 @@ import {
 
 import {Tests, run} from './tests.mjs';
 
-const TOLERANCE = 0.000001
-
 class VectorTests extends Tests {
     constructor() {
         super();
-    }
-
-    assertVecEq(u, v) {
-        if(Math.abs(u.x-v.x) > TOLERANCE || Math.abs(u.y-v.y) > TOLERANCE) {
-            this.passing = false;
-            this.errorLog.push(`expected ${u.string()}==${v.string()}`);
-        }
     }
 
     test_vector_addition() {

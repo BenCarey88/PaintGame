@@ -22,6 +22,13 @@ export class Tests {
         }
     }
 
+    assertVecEq(u, v) {
+        if(Math.abs(u.x-v.x) > TOLERANCE || Math.abs(u.y-v.y) > TOLERANCE) {
+            this.passing = false;
+            this.errorLog.push(`expected ${u.string()}==${v.string()}`);
+        }
+    }
+
     assertTrue(statement) {
         if(!statement) {
             this.passing = false;
