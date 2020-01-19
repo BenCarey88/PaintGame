@@ -1,11 +1,11 @@
 import {
     print, newLine,
     Vector, Matrix, Rotation, Line
-} from './exports.mjs';
+} from '../exports.mjs';
 
-import {Tests, run} from './tests.mjs';
+import {Tests} from '../tests.mjs';
 
-class VectorTests extends Tests {
+export class VectorTests extends Tests {
     constructor() {
         super();
     }
@@ -65,5 +65,3 @@ class VectorTests extends Tests {
     }
 
 }
-
-run(VectorTests);

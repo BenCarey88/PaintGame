@@ -36,7 +36,7 @@ export class Tests {
         }
     }
 
-    getResult(test) {
+    getResult(test, printResults) {
         var messagesAndColours = [test.concat(": &nbsp &nbsp"), "white"];
         if(this.passing) {
             messagesAndColours.push("[OK]", "lime");
@@ -46,10 +46,12 @@ export class Tests {
             messagesAndColours.push(this.errorLog.join("</br>"), "red");
             this.failList.push(test);
         }
-        printColour(...messagesAndColours);
+        if(printResults) {
+            printColour(...messagesAndColours);
+        }
     }
 
-    run() {
+    run(printResults=true) {
         //get all attributes of this
         let properties = new Set();
         let currentObj = this;
@@ -69,21 +71,28 @@ export class Tests {
         for(var test of tests) {
             this.reset();
             this[test]();
-            this.getResult(test);
+            this.getResult(test, printResults);
         }
 
-        //display overall result
-        newLine();
+        //get overall result
+        var result = [];
         if (this.failList.length > 0) {
-            printColour(
+            result.push(
                 `${tests.length - this.failList.length} tests passing. `, "lime",
                 `</br>${this.failList.length} tests failing: `, "red",
                 `${this.failList.join(", ")}, `, "orange",
             )
         }
         else {
-            printColour(`${tests.length} tests passing. [SUCCESS]`, "lime")
+            result.push(`${tests.length} tests passing. [SUCCESS]`, "lime")
         }
+
+        //display result
+        if (printResults) {
+            newLine();
+            printColour(...result);
+        }
+        return result        
     }
 }
 
@@ -91,5 +100,10 @@ export function run(testClass) {
     print(testClass.name);
     newLine()
     var testInstance = new testClass();
-    testInstance.run();
+    testInstance.run(true);
+}
+
+export function summary(testClass) {
+    var testInstance = new testClass();
+    return testInstance.run(false);
 }
