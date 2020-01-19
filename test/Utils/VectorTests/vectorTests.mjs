@@ -1,9 +1,6 @@
-import {
-    print, newLine,
-    Vector, Matrix, Rotation, Line
-} from '../exports.mjs';
+import {Tests} from '../../tests.mjs';
+import {Vector} from '../../exports.mjs';
 
-import {Tests} from '../tests.mjs';
 
 export class VectorTests extends Tests {
     constructor() {

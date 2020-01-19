@@ -2,6 +2,25 @@ import {print, printColour, newLine} from './exports.mjs'
 
 const TOLERANCE = 0.000001
 
+function floatEq(x, y) {
+    return (Math.abs(x - y) < TOLERANCE);
+}
+
+function vecEq(u, v){
+    return (floatEq(u.x, v.x) && floatEq(u.y, v.y));
+}
+
+function matEq(m1, m2){
+    return (
+        floatEq(m1.a, m2.a) && floatEq(m1.b, m2.b) &&
+        floatEq(m1.c, m2.c) && floatEq(m1.d, m2.d)
+    );
+}
+
+function lineEq(l1, l2){
+    return (vecEq(l1.pos1, l2.pos1) && vecEq(l1.pos2, l2.pos2));
+}
+
 export class Tests {
     
     constructor() {
@@ -16,16 +35,30 @@ export class Tests {
     }
 
     assertEq(x, y) {
-        if (Math.abs(x-y) > TOLERANCE) {
+        if (!floatEq(x, y)) {
             this.passing = false;
-            this.errorLog.push(`expected ${x}==${y}`);
+            this.errorLog.push(`expected ${x} == ${y}`);
         }
     }
 
     assertVecEq(u, v) {
-        if(Math.abs(u.x-v.x) > TOLERANCE || Math.abs(u.y-v.y) > TOLERANCE) {
+        if (!vecEq(u, v)) {
             this.passing = false;
-            this.errorLog.push(`expected ${u.string()}==${v.string()}`);
+            this.errorLog.push(`expected ${u.string()} == ${v.string()}`);
+        }
+    }
+
+    assertMatEq(m1, m2) {
+        if (!matEq(m1, m2)) {
+            this.passing = false;
+            this.errorLog.push(`expected </br>${m1.string()}</br>equals</br>${m2.string()}`);
+        }
+    }
+
+    assertLineEq(l1, l2) {
+        if (!lineEq(l1, l2)) {
+            this.passing = false;
+            this.errorLog.push(`expected ${l1.string()} equals ${l2.string()}`);
         }
     }
 
@@ -44,7 +77,7 @@ export class Tests {
         else{
             messagesAndColours.push("[FAIL]", "red");
             messagesAndColours.push(this.errorLog.join("</br>"), "red");
-            this.failList.push(test);
+            this.failList.push(`\{${test}\}`);
         }
         if(printResults) {
             printColour(...messagesAndColours);
@@ -79,8 +112,9 @@ export class Tests {
         if (this.failList.length > 0) {
             result.push(
                 `${tests.length - this.failList.length} tests passing. `, "lime",
-                `</br>${this.failList.length} tests failing: `, "red",
-                `${this.failList.join(", ")}, `, "orange",
+                `${this.failList.length} tests failing: `, "red",
+                `${this.failList.join(", ")} `, "red",
+                `[FAILURE]`, "red"
             )
         }
         else {

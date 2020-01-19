@@ -23,6 +23,14 @@ export class Matrix {
         );
     }
 
+    //this += mat
+    plusEq(mat) {
+        this.a += mat.a;
+        this.b += mat.b;
+        this.c += mat.c;
+        this.d += mat.d;
+    }
+
     //return this - mat
     minus(mat) {
         return new Matrix(
@@ -31,6 +39,14 @@ export class Matrix {
             this.c - mat.c,
             this.d - mat.d
         );
+    }
+
+    //this -= mat
+    minusEq(mat) {
+        this.a -= mat.a;
+        this.b -= mat.b;
+        this.c -= mat.c;
+        this.d -= mat.d;
     }
 
     //return -this
@@ -53,6 +69,14 @@ export class Matrix {
         );
     }
 
+    //this *= scalar
+    sMultEq(scalar) {
+        this.a *= scalar;
+        this.b *= scalar;
+        this.c *= scalar;
+        this.d *= scalar;
+    }
+
     //return this * vec
     vMult(vec) {
         return new Vector(
@@ -69,6 +93,18 @@ export class Matrix {
             this.c * mat.a + this.d * mat.c,
             this.c * mat.b + this.d * mat.d
         );
+    }
+
+    //this *= mat
+    mMultEq(mat) {
+        var tempA = this.a * mat.a + this.b * mat.c;
+        var tempB = this.a * mat.b + this.b * mat.d;
+        var tempC = this.c * mat.a + this.d * mat.c;
+        var tempD = this.c * mat.b + this.d * mat.d;
+        this.a = tempA;
+        this.b = tempB;
+        this.c = tempC;
+        this.d = tempD;
     }
 
     //return determinant of this

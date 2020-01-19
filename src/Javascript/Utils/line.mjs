@@ -65,7 +65,7 @@ export class Line {
 
     //string representation
     string() {
-        return `START: ${this.pos1.string()}; END: ${this.pos2.string()}`;
+        return `Line[${this.pos1.string()} to ${this.pos2.string()}]`;
     }
 
     //print string representation
