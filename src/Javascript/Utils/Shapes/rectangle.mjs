@@ -3,7 +3,7 @@
 import {BBox} from './bbox.mjs';
 import {Shape} from './shape.mjs';
 
-export class Rectangle extends Shape {
+export class Rect extends Shape {
 
     constructor(v1, v2, v3, v4) {
         super({v1:v1, v2:v2, v3:v3, v4:v4});
@@ -28,7 +28,7 @@ export class Rectangle extends Shape {
     }
 
     clone(points) {
-        return new Rectangle(points.v1, points.v2, points.v3, points.v4);
+        return new Rect(points.v1, points.v2, points.v3, points.v4);
     }
 
     orientation() {
@@ -39,7 +39,10 @@ export class Rectangle extends Shape {
 
     //string representation
     string() {
-        return `Rectangle[${this.v1}, ${this.v2}, ${this.v3}, ${this.v4}]`;
+        return (
+            `Rectangle[${this.v1.string()}, ${this.v2.string()},
+            ${this.v3.string()}, ${this.v4.string()}]`
+        );
     }
 
 }

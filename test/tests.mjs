@@ -17,15 +17,26 @@ function matEq(m1, m2){
     );
 }
 
-function lineEq(l1, l2){
-    return (vecEq(l1.pos1, l2.pos1) && vecEq(l1.pos2, l2.pos2));
-}
-
 function bboxEq(box1, box2){
     return (
         floatEq(box1.xmin, box2.xmin) && floatEq(box1.ymin, box2.ymin) &&
         floatEq(box1.xmax, box2.xmax) && floatEq(box1.ymax, box2.ymax)
-    )
+    );
+}
+
+function lineEq(l1, l2){
+    return (vecEq(l1.pos1, l2.pos1) && vecEq(l1.pos2, l2.pos2));
+}
+
+function circleEq(c1, c2) {
+    return (vecEq(c1.centre, c2.centre) && floatEq(c1.rad, c2.rad));
+}
+
+function rectEq(r1, r2) {
+    return (
+        vecEq(r1.v1, r2.v1) && vecEq(r1.v2, r2.v2) &&
+        vecEq(r1.v3, r2.v3) && vecEq(r1.v4, r2.v4)
+    );
 }
 
 export class Tests {
@@ -69,6 +80,13 @@ export class Tests {
         }
     }
 
+    assertBBoxEq(box1, box2) {
+        if (!bboxEq(box1, box2)) {
+            this.passing = false;
+            this.errorLog.push(`expected ${box1.string()} == ${box2.string()}`);
+        }
+    }
+
     assertLineEq(l1, l2) {
         if (!lineEq(l1, l2)) {
             this.passing = false;
@@ -76,10 +94,17 @@ export class Tests {
         }
     }
 
-    assertBBoxEq(box1, box2) {
-        if (!bboxEq(box1, box2)) {
+    assertCircleEq(c1, c2) {
+        if (!circleEq(c1, c2)) {
             this.passing = false;
-            this.errorLog.push(`expected ${box1.string()} == ${box2.string()}`);
+            this.errorLog.push(`expected ${c1.string()} == ${c2.string()}`);
+        }
+    }
+
+    assertRectEq(r1, r2) {
+        if (!rectEq(r1, r2)) {
+            this.passing = false;
+            this.errorLog.push(`expected ${r1.string()} == ${r2.string()}`);
         }
     }
 
