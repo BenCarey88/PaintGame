@@ -2,7 +2,7 @@ import {print, printColour, newLine} from './exports.mjs'
 
 const TOLERANCE = 0.000001
 
-function floatEq(x, y) {
+function floatEq(x, y){
     return (Math.abs(x - y) < TOLERANCE);
 }
 
@@ -21,6 +21,13 @@ function lineEq(l1, l2){
     return (vecEq(l1.pos1, l2.pos1) && vecEq(l1.pos2, l2.pos2));
 }
 
+function bboxEq(box1, box2){
+    return (
+        floatEq(box1.xmin, box2.xmin) && floatEq(box1.ymin, box2.ymin) &&
+        floatEq(box1.xmax, box2.xmax) && floatEq(box1.ymax, box2.ymax)
+    )
+}
+
 export class Tests {
     
     constructor() {
@@ -35,6 +42,13 @@ export class Tests {
     }
 
     assertEq(x, y) {
+        if (x != y) {
+            this.passing = false;
+            this.errorLog.push(`expected ${x} == ${y}`);
+        }
+    }
+
+    assertFloatEq(x, y) {
         if (!floatEq(x, y)) {
             this.passing = false;
             this.errorLog.push(`expected ${x} == ${y}`);
@@ -58,7 +72,14 @@ export class Tests {
     assertLineEq(l1, l2) {
         if (!lineEq(l1, l2)) {
             this.passing = false;
-            this.errorLog.push(`expected ${l1.string()} equals ${l2.string()}`);
+            this.errorLog.push(`expected ${l1.string()} == ${l2.string()}`);
+        }
+    }
+
+    assertBBoxEq(box1, box2) {
+        if (!bboxEq(box1, box2)) {
+            this.passing = false;
+            this.errorLog.push(`expected ${box1.string()} == ${box2.string()}`);
         }
     }
 

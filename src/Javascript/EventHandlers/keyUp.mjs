@@ -1,6 +1,6 @@
 //functions to apply on key up event
 
-import {print, newLine} from '../Utils/debugging.mjs';
+import {print, newLine} from '../Utils/print.mjs';
 import {Vector} from '../Utils/index.mjs';
 
 var LEFT = 37;

@@ -1,6 +1,6 @@
 //Matrix class
 
-import {print} from './debugging.mjs';
+import {print} from '../print.mjs';
 import {Vector} from './vector.mjs';
 
 export class Matrix {

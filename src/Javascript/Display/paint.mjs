@@ -1,6 +1,6 @@
 //functions for displaying user-made paint
 
-import {print, newLine} from '../Utils/debugging.mjs';
+import {print, newLine} from '../Utils/print.mjs';
 
 export function paintLines(screen) {
     for(var i=0; i<screen.lines.length; i++) {

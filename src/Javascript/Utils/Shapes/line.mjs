@@ -1,17 +1,29 @@
-//Line class
+//Line shape class
 
-import {print} from './debugging.mjs';
-import {Vector} from './vector.mjs';
-import {Rotation} from './rotation.mjs';
+import {Vector} from '../Maths/index.mjs';
+import {BBox} from './bbox.mjs';
+import {Shape} from './shape.mjs';
 
-export class Line {
+export class Line extends Shape {
 
     //construct line from two position vectors
     constructor(pos1, pos2) {
-        this.pos1 = pos1;
-        this.pos2 = pos2;
+        super({pos1:pos1, pos2:pos2});
         this.update();
         this.width = 20;
+    }
+
+    bbox() {
+        return new BBox(
+            Math.min(this.x1, this.x2) - this.width * 0.5,
+            Math.min(this.y1, this.y2) - this.width * 0.5,
+            Math.max(this.x1, this.x2) + this.width * 0.5,
+            Math.max(this.y1, this.y2) + this.width * 0.5,
+        );
+    }
+
+    clone(points) {
+        return new Line(points.pos1, points.pos2);
     }
 
     //get x and y coordinates from the two pos vectors
@@ -43,34 +55,9 @@ export class Line {
         );
     }
 
-    //return this translated by vec
-    translate(vec) {
-        return new Line(
-            this.pos1.plus(vec), this.pos2.plus(vec)
-        );
-    }
-
-    //return this rotated by angle about centre (default line centre)
-    rotate(angle, centre) {
-        var rot = new Rotation(angle);
-        if (centre == undefined) {
-            centre = this.centre();
-        }
-        var newLine = this.translate(centre.negative());
-        newLine = new Line(
-            rot.vMult(newLine.pos1), rot.vMult(newLine.pos2)
-        );
-        return newLine.translate(centre);
-    }
-
     //string representation
     string() {
         return `Line[${this.pos1.string()} to ${this.pos2.string()}]`;
-    }
-
-    //print string representation
-    print() {
-        print(this.string());
     }
 
 }

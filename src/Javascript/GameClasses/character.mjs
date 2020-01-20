@@ -1,8 +1,7 @@
 //character class for player character
 
-import {print, newLine} from '../Utils/debugging.mjs';
-import {Vector} from '../Utils/vector.mjs';
-import {Rotation} from '../Utils/rotation.mjs';
+import {print, newLine} from '../Utils/print.mjs';
+import {Vector, Rotation} from '../Utils/index.mjs';
 
 export class Character {
 

@@ -1,6 +1,6 @@
 //functions for displaying character class
 
-import {print, newLine} from '../Utils/debugging.mjs';
+import {print, newLine} from '../Utils/print.mjs';
 import {Vector} from '../Utils/index.mjs';
 
 export function displayCharacter(screen) {

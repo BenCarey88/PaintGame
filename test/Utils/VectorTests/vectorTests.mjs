@@ -38,13 +38,13 @@ export class VectorTests extends Tests {
     test_dot_product() {
         var v = new Vector(2, 5);
         var u = new Vector(1, -1);
-        this.assertEq(v.dot(u), -3);
-        this.assertEq(u.dot(v), v.dot(u));
+        this.assertFloatEq(v.dot(u), -3);
+        this.assertFloatEq(u.dot(v), v.dot(u));
     }
 
     test_vector_magnitude() {
         var v = new Vector(3, 4);
-        this.assertEq(v.magnitude(), 5);
+        this.assertFloatEq(v.magnitude(), 5);
         var u = new Vector(3.0/5.0, 4.0/5.0);
         this.assertVecEq(v.unit(), u);
     }

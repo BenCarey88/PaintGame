@@ -1,6 +1,6 @@
 //Screen class containing game global states
 
-import {print, newLine} from './Utils/debugging.mjs';
+import {print, newLine} from './Utils/print.mjs';
 import {Vector, Line} from './Utils/index.mjs';
 import {Character} from './GameClasses/index.mjs';
 import {moveCharacter} from './Movement/index.mjs';

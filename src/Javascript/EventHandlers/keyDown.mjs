@@ -1,7 +1,7 @@
 //functions to apply on key down event
 
-import {print, newLine} from '../Utils/debugging.mjs';
-import {Vector} from '../Utils/vector.mjs';
+import {print, newLine} from '../Utils/print.mjs';
+import {Vector} from '../Utils/index.mjs';
 
 var LEFT = 37;  //left arrow key
 var UP = 38;    //up arrow key

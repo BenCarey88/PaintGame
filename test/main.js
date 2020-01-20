@@ -17,8 +17,8 @@ printColour("Utils", "orange")
     import {MatrixTests} from './Utils/MatrixTests/matrixTests.mjs'
 	runTests(MatrixTests, './Utils/MatrixTests/matrixTests.html')
 
-    import {LineTests} from './Utils/LineTests/lineTests.mjs'
-	runTests(LineTests, './Utils/LineTests/lineTests.html')
+	import {ShapeTests} from './Utils/ShapeTests/shapeTests.mjs'
+	runTests(ShapeTests, './Utils/ShapeTests/shapeTests.html')
 
 newLine();
 printColour("Collisions", "orange")

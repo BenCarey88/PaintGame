@@ -1,4 +1,4 @@
-import {print, newLine} from './Utils/debugging.mjs';
+import {print, newLine} from './Utils/print.mjs';
 
 print("TEST");
 

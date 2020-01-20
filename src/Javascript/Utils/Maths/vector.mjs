@@ -1,6 +1,6 @@
 ///Vector class
 
-import {print} from './debugging.mjs';
+import {print} from '../print.mjs';
 
 export class Vector {
     

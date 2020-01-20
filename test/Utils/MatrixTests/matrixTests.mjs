@@ -53,7 +53,7 @@ export class MatrixTests extends Tests {
 	test_inverse() {
 		var m1 = new Matrix(1, 2, 3, 1);
 		var m2 = new Matrix(-0.2, 0.4, 0.6, -0.2);
-		this.assertEq(m1.det(), -5);
+		this.assertFloatEq(m1.det(), -5);
 		this.assertMatEq(m1.inverse(), m2);
 	}
 

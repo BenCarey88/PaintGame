@@ -1,6 +1,6 @@
 //Rotation class
 
-import {print} from './debugging.mjs';
+import {print} from '../print.mjs';
 import {Matrix} from './matrix.mjs'
 
 export class Rotation extends Matrix {
