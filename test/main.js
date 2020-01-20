@@ -20,5 +20,8 @@ printColour("Utils", "orange")
 	import {ShapeTests} from './Utils/ShapeTests/shapeTests.mjs'
 	runTests(ShapeTests, './Utils/ShapeTests/shapeTests.html')
 
+    import {QuadraticTests} from './Utils/QuadraticTests/quadraticTests.mjs'
+	runTests(QuadraticTests, './Utils/QuadraticTests/quadraticTests.html')
+
 newLine();
 printColour("Collisions", "orange")
