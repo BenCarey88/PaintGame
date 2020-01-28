@@ -1,16 +1,28 @@
 //Matrix class
 
 import {print} from '../print.mjs';
+import {Base} from '../base.mjs';
 import {Vector} from './vector.mjs';
 
-export class Matrix {
+export class Matrix extends Base {
 
     //construct matrix from 4 floats
     constructor(a, b, c, d) {
+        super();
         this.a = a;
         this.b = b;
         this.c = c;
         this.d = d;
+    }
+
+    //compare if this == mat
+    eq(mat) {
+        return (
+            this.floatEq(this.a, mat.a) &&
+            this.floatEq(this.b, mat.b) &&
+            this.floatEq(this.c, mat.c) &&
+            this.floatEq(this.d, mat.d)
+        );
     }
 
     //return this + mat
@@ -128,11 +140,6 @@ export class Matrix {
     //string representation
     string() {
         return `|${this.a}, ${this.b}| <br/> |${this.c}, ${this.d}|`;
-    }
-
-    //print string representation
-    print() {
-        print(this.string());
     }
 
 }

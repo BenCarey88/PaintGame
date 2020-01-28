@@ -13,25 +13,25 @@ export class QuadraticTests extends Tests {
 	}
 
 	test_discriminant_zero() {
-		this.assertFloatEq(
+		this.assertEq(
 			quadraticSolver(2, 4, 2)[0], -1 
 		)
 	}
 
 	test_discriminant_positive() {
-		this.assertFloatEq(
+		this.assertEq(
 			quadraticSolver(-4, 3, 1)[0], -0.25
 		)
-		this.assertFloatEq(
+		this.assertEq(
 			quadraticSolver(-4, 3, 1)[1], 1
 		)
 	}
 
 	test_discriminant_positive_non_square() {
-		this.assertFloatEq(
+		this.assertEq(
 			quadraticSolver(1, 4, -2)[0], -Math.sqrt(6) - 2
 		)
-		this.assertFloatEq(
+		this.assertEq(
 			quadraticSolver(1, 4, -2)[1], Math.sqrt(6) - 2
 		)
 	}

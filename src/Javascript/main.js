@@ -36,8 +36,26 @@ import {Screen} from './screen.js';
 // line1.rotate(-Math.PI/2).print();
 
 var screen = new Screen();
+
+print(screen.constructor.name)
+
 screen.init();
 
 screen.run();
 
 print("sfdghjkl;");
+
+
+var rot = new Rotation(0);
+print(Object.getPrototypeOf(Object.getPrototypeOf(Object.getPrototypeOf(rot.constructor))).name);
+
+
+var constructor = rot.constructor;
+var baseName;
+do {
+    baseName = constructor.name;
+    print(baseName);
+    constructor = Object.getPrototypeOf(constructor);
+} while(constructor.name != "")
+
+print(baseName);

@@ -7,22 +7,28 @@ import {Shape} from './shape.mjs';
 export class Line extends Shape {
 
     //construct line from two position vectors
-    constructor(pos1, pos2) {
+    constructor(pos1, pos2, orientation, bbox) {
         super({pos1:pos1, pos2:pos2});
         this.update();
+
+        this._orientation = orientation;
+        this._bbox = bbox;
         this.width = 20;
     }
 
     bbox() {
-        return new BBox(
-            Math.min(this.x1, this.x2) - this.width * 0.5,
-            Math.min(this.y1, this.y2) - this.width * 0.5,
-            Math.max(this.x1, this.x2) + this.width * 0.5,
-            Math.max(this.y1, this.y2) + this.width * 0.5,
-        );
+        if (this._bbox == undefined) {
+            this._bbox =  new BBox(
+                Math.min(this.x1, this.x2) - this.width * 0.5,
+                Math.min(this.y1, this.y2) - this.width * 0.5,
+                Math.max(this.x1, this.x2) + this.width * 0.5,
+                Math.max(this.y1, this.y2) + this.width * 0.5,
+            );
+        }
+        return this._bbox;
     }
 
-    clone(points) {
+    clone(points, angle) {
         return new Line(points.pos1, points.pos2);
     }
 
@@ -48,11 +54,47 @@ export class Line extends Shape {
         );
     }
 
+    //DEPRECATE:
     //return angle of elevation of line
     elevation() {
         return Math.atan2(
             this.y2 - this.y1, this.x2 - this.x1
         );
+    }
+
+    orientation() {
+        if (this._orientation == undefined) {
+            this._orientation = Math.atan2(
+                this.y2 - this.y1, this.x2 - this.x1
+            );
+        }
+        return this._orientation;
+    }
+
+    //draw line to ctx
+    draw(ctx) {
+        ctx.fillStyle = "black";
+        ctx.lineWidth = this.width;
+
+        ctx.beginPath();
+        ctx.moveTo(this.x1, this.y1);
+        ctx.lineTo(this.x2, this.y2);
+        ctx.stroke();
+        ctx.closePath();
+
+        ctx.beginPath();
+        ctx.arc(
+            this.x1, this.y1, this.width/2, 0, 2 * Math.PI
+        );
+        ctx.fill();
+        ctx.closePath();
+
+        ctx.beginPath();
+        ctx.arc(
+            this.x2, this.y2, this.width/2, 0, 2 * Math.PI
+        );
+        ctx.fill();
+        ctx.closePath();
     }
 
     //string representation

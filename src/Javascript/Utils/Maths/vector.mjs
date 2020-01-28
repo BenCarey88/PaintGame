@@ -1,13 +1,23 @@
 ///Vector class
 
 import {print} from '../print.mjs';
+import {Base} from '../base.mjs';
 
-export class Vector {
+export class Vector extends Base {
     
     //construct vector from x, y components
     constructor(x, y) {
+        super();
         this.x = x;
         this.y = y;
+    }
+
+    //compare if this == vec
+    eq(vec) {
+        return (
+            this.floatEq(this.x, vec.x) &&
+            this.floatEq(this.y, vec.y)
+        );
     }
 
     //return size of this
@@ -87,11 +97,6 @@ export class Vector {
     //string representation
     string() {
         return `(${this.x}, ${this.y})`;
-    }
-
-    //print string representation
-    print() {
-        print(this.string());
     }
 
 }

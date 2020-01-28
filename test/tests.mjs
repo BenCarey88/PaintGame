@@ -1,136 +1,113 @@
 import {print, printColour, newLine} from './exports.mjs'
 
-const TOLERANCE = 0.000001
-
-function floatEq(x, y){
-    return (Math.abs(x - y) < TOLERANCE);
-}
-
-function vecEq(u, v){
-    return (floatEq(u.x, v.x) && floatEq(u.y, v.y));
-}
-
-function matEq(m1, m2){
-    return (
-        floatEq(m1.a, m2.a) && floatEq(m1.b, m2.b) &&
-        floatEq(m1.c, m2.c) && floatEq(m1.d, m2.d)
-    );
-}
-
-function bboxEq(box1, box2){
-    return (
-        floatEq(box1.xmin, box2.xmin) && floatEq(box1.ymin, box2.ymin) &&
-        floatEq(box1.xmax, box2.xmax) && floatEq(box1.ymax, box2.ymax)
-    );
-}
-
-function lineEq(l1, l2){
-    return (vecEq(l1.pos1, l2.pos1) && vecEq(l1.pos2, l2.pos2));
-}
-
-function circleEq(c1, c2) {
-    return (vecEq(c1.centre, c2.centre) && floatEq(c1.rad, c2.rad));
-}
-
-function rectEq(r1, r2) {
-    return (
-        vecEq(r1.v1, r2.v1) && vecEq(r1.v2, r2.v2) &&
-        vecEq(r1.v3, r2.v3) && vecEq(r1.v4, r2.v4)
-    );
-}
-
-export class Tests {
+export class Tests extends Base {
     
     constructor() {
+        super();
         this.passing = true;
-        this.errorLog = [""];
+        this.failLog = [""];
         this.failList = [];
+        this.errorList = [];
     }
 
+    //reset test properties between each test
     reset() {
         this.passing = true;
-        this.errorLog = [""];
+        this.failLog = [""];
     }
 
+    //assert that variables x and y are equal (for use in tests)
     assertEq(x, y) {
-        if (x != y) {
+
+        if (typeof x != typeof y) {
             this.passing = false;
-            this.errorLog.push(`expected ${x} == ${y}`);
+            this.failLog.push(
+                `operands to assertEq are not of the same type: `
+                `${typeof x} and ${typeof y}`
+            );
+            return;
+        }
+
+        switch (typeof x) {
+
+            case "string":
+            case "boolean":
+                if (x != y) {
+                    this.passing = false;
+                    this.failLog.push(`expected ${x} == ${y}`);
+                }
+                break;
+    
+            case "number":
+                if (!this.floatEq(x, y)) {
+                    this.passing = false;
+                    this.failLog.push(`expected ${x} == ${y}`);
+                }
+                break;
+
+            case "object":
+                var constructor = x.constructor;
+                do {
+                    if (constructor.name == 'Base') {
+                        if (!x.eq(y)) {
+                            this.passing = false;
+                            this.failLog.push(
+                                `expected ${x.string()} == ${y.string()}`
+                            );
+                        }
+                        return
+                    }
+                } while(constructor = Object.getPrototypeOf(constructor))
+                this.passing = false;
+                this.failLog.push(
+                    `unsupported operands to assertEq: type non-custom Object`
+                );
+                break;
+
+            default:
+                this.passing = false;
+                this.failLog.push(
+                    `unsupported operands to assertEq: type ${typeof x}`
+                );
+                break;
         }
     }
 
-    assertFloatEq(x, y) {
-        if (!floatEq(x, y)) {
-            this.passing = false;
-            this.errorLog.push(`expected ${x} == ${y}`);
-        }
-    }
-
-    assertVecEq(u, v) {
-        if (!vecEq(u, v)) {
-            this.passing = false;
-            this.errorLog.push(`expected ${u.string()} == ${v.string()}`);
-        }
-    }
-
-    assertMatEq(m1, m2) {
-        if (!matEq(m1, m2)) {
-            this.passing = false;
-            this.errorLog.push(`expected </br>${m1.string()}</br>equals</br>${m2.string()}`);
-        }
-    }
-
-    assertBBoxEq(box1, box2) {
-        if (!bboxEq(box1, box2)) {
-            this.passing = false;
-            this.errorLog.push(`expected ${box1.string()} == ${box2.string()}`);
-        }
-    }
-
-    assertLineEq(l1, l2) {
-        if (!lineEq(l1, l2)) {
-            this.passing = false;
-            this.errorLog.push(`expected ${l1.string()} == ${l2.string()}`);
-        }
-    }
-
-    assertCircleEq(c1, c2) {
-        if (!circleEq(c1, c2)) {
-            this.passing = false;
-            this.errorLog.push(`expected ${c1.string()} == ${c2.string()}`);
-        }
-    }
-
-    assertRectEq(r1, r2) {
-        if (!rectEq(r1, r2)) {
-            this.passing = false;
-            this.errorLog.push(`expected ${r1.string()} == ${r2.string()}`);
-        }
-    }
-
+    //assert that statement is true (for use in test)
     assertTrue(statement) {
         if(!statement) {
             this.passing = false;
-            this.errorLog.push("assertTrue called on false statement");
+            this.failLog.push("assertTrue called on false statement");
         }
     }
 
+    //run a given test, and print results if requested
     getResult(test, printResults) {
+        this.reset();
         var messagesAndColours = [test.concat(": &nbsp &nbsp"), "white"];
-        if(this.passing) {
-            messagesAndColours.push("[OK]", "lime");
+        try {
+            this[test]();
+            if(this.passing) {
+                messagesAndColours.push("[OK]", "lime");
+            }
+            else{
+                messagesAndColours.push("[FAIL]", "red");
+                messagesAndColours.push(this.failLog.join("</br>"), "red");
+                this.failList.push(`\{${test}\}`);
+            }
         }
-        else{
-            messagesAndColours.push("[FAIL]", "red");
-            messagesAndColours.push(this.errorLog.join("</br>"), "red");
-            this.failList.push(`\{${test}\}`);
+        catch(err) {
+            messagesAndColours.push(`[ERROR]: ${err.message}`, "red");
+            this.errorList.push(`\{${test}\}`);
         }
         if(printResults) {
             printColour(...messagesAndColours);
         }
     }
 
+    //run all tests and return results. Print results if requested.
     run(printResults=true) {
+
         //get all attributes of this
         let properties = new Set();
         let currentObj = this;
@@ -146,25 +123,32 @@ export class Tests {
             )
         );
 
-        //run test methods and display test results
+        //run test methods and get test results
         for(var test of tests) {
-            this.reset();
-            this[test]();
             this.getResult(test, printResults);
         }
 
         //get overall result
         var result = [];
-        if (this.failList.length > 0) {
+        var numPasses = tests.length - this.failList.length - this.errorList.length
+        result.push(`${numPasses} tests passing. `, "lime")
+        if (this.errorList.length > 0) {
             result.push(
-                `${tests.length - this.failList.length} tests passing. `, "lime",
+                `${this.errorList.length} tests erroring. `, "red",
+                //`${this.errorList.join(", ")} `, "red",
+            );
+        }
+        if (this.failList.length > 0 ) {
+            result.push(
                 `${this.failList.length} tests failing: `, "red",
-                `${this.failList.join(", ")} `, "red",
-                `[FAILURE]`, "red"
-            )
+                //`${this.failList.join(", ")} `, "red",
+            );
+        }
+        if (tests.length == numPasses) {
+            result.push(`[SUCCESS]`, "lime");
         }
         else {
-            result.push(`${tests.length} tests passing. [SUCCESS]`, "lime")
+            result.push(`[FAIL]`, "red");
         }
 
         //display result
@@ -176,6 +160,7 @@ export class Tests {
     }
 }
 
+//run all tests for testClass and display full results
 export function run(testClass) {
     print(testClass.name);
     newLine()
@@ -183,6 +168,7 @@ export function run(testClass) {
     testInstance.run(true);
 }
 
+//run all tests for testClass and return condensed summary
 export function summary(testClass) {
     var testInstance = new testClass();
     return testInstance.run(false);

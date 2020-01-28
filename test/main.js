@@ -3,6 +3,7 @@ import {summary} from './tests.mjs';
 
 function runTests(test, link) {
     printColour(test.name, "white", "&nbsp &nbsp", "white", ...summary(test));
+    // printColour(test.name, "white", "&nbsp &nbsp", "white", err.message, "red");
     addLink(test.name, link);
 }
 
