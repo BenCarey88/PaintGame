@@ -29,6 +29,7 @@ export class Rect extends Shape {
         this._orientation = orientation;
     }
 
+    //return bounding box
     bbox() {
         if (this._bbox == undefined) {
             this._bbox = new BBox(
@@ -41,6 +42,7 @@ export class Rect extends Shape {
         return this._bbox;
     }
 
+    //clone this from new points, passing in vertices for speed
     clone(points, orientation) {
         return new Rect(
             points.centre, this.width, this.height, orientation,
@@ -48,6 +50,8 @@ export class Rect extends Shape {
         );
     }
 
+    //return orientation of this. It is assumed that orientation 0
+    //has vertices going clockiwse from top left.
     orientation() {
         if (this._orientation == undefined) {
             this._orientation = Math.atan2(

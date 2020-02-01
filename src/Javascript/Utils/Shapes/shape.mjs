@@ -20,6 +20,13 @@ export class Shape extends Base {
 
         this._bbox = undefined;
         this._orientation = undefined;
+        this._centre = undefined;
+    }
+
+    //reset properties after rotation / translation
+    reset() {
+        this._bbox = undefined;
+        this._centre = undefined;
     }
 
     //compare if this == other shape
@@ -66,6 +73,7 @@ export class Shape extends Base {
         for (var key in this.points) {
             this.points[key].plusEq(vec);
         }
+        this.reset();
     }
 
     //return this rotated by angle about pivot (default: (0,0))
@@ -103,6 +111,7 @@ export class Shape extends Base {
                 ).plus(pivot)
             }
         }
+        this.reset();
     }
 
     //draw the shape to the context

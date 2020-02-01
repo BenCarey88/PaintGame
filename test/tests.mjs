@@ -81,6 +81,14 @@ export class Tests extends Base {
         }
     }
 
+    //assert that statement is false (for use in test)
+    assertFalse(statement) {
+        if(statement) {
+            this.passing = false;
+            this.failLog.push("assertFalse called on true statement");
+        }
+    }
+
     //run a given test, and print results if requested
     getResult(test, printResults) {
         this.reset();

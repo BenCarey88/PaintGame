@@ -26,8 +26,19 @@ export class BBox extends Base {
     //check if this intersects other bbox
     intersect(bbox) {
         return (
-            Math.max(this.xmin, bbox.xmin) < Math.min(this.xmax, bbox.xmax) &&
-            Math.max(this.ymin, bbox.ymin) < Math.min(this.ymax, bbox.ymax)
+            Math.max(this.xmin, bbox.xmin) <= Math.min(this.xmax, bbox.xmax) &&
+            Math.max(this.ymin, bbox.ymin) <= Math.min(this.ymax, bbox.ymax)
+        );
+    }
+
+    //draw bbox to ctx
+    draw(ctx) {
+        ctx.fillStyle = "rgba(233, 212, 96, 0.5)";
+		ctx.fillRect(
+            this.xmin,
+            this.ymin, 
+            this.xmax - this.xmin,
+            this.ymax - this.ymin
         );
     }
 
