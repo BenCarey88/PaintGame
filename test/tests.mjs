@@ -1,4 +1,4 @@
-import {print, printColour, newLine} from './exports.mjs'
+import {print, printColour, newLine, Base} from './exports.mjs'
 
 export class Tests extends Base {
     

@@ -1,71 +1,67 @@
 //Rectangle shape class
 
 import {Vector} from '../Maths/vector.mjs';
+import {Rotation} from '../Maths/rotation.mjs';
 import {BBox} from './bbox.mjs';
 import {Shape} from './shape.mjs';
 
 export class Rect extends Shape {
 
     constructor(centre, width, height, orientation, vertices) {
-        if (vertices==undefined) {
-            
+        
+        if (vertices == undefined) {
+            var rot = new Rotation(orientation);
+            vertices = {
+                v1: new Vector(-width/2, -height/2),
+                v2: new Vector(width/2, -height/2),
+                v3: new Vector(width/2, height/2),
+                v4: new Vector(-width/2, height/2)
+            }
+            for (var key in vertices) {
+                vertices[key] = rot.vMult(vertices[key]).plus(centre);
+            }
         }
-        super({centre: centre});
+        vertices.centre = centre;
+        super(vertices);
+
         this.width = width;
         this.height = height;
-        this.orientation = orientation;
-        
-        // var theta = Math.atan2(height, width);
-        // var diagonal = 0.5*Math.sqrt(height*height + width*width);
-
-        this.displayCoordinates = {
-            xmin: centre.x - width/2,
-            ymin: centre.y - height/2,
-            xmax: centre.x + width/2,
-            ymax: centre.y + height/2
-        }
-
-        // this.v1 = centre.minus(
-        //     new Vector(
-        //         diagonal * Math.cos(theta - orientation)
-        //     )
-        // );
-        // this.v2 = 
-        // this.v3 =
-        // this.v4 =
+        this._orientation = orientation;
     }
 
     bbox() {
-        return new BBox(
-            Math.min(this.v1.x, this.v2.x, this.v3.x, this.v4.x),
-            Math.min(this.v1.y, this.v2.y, this.v3.y, this.v4.y),
-            Math.max(this.v1.x, this.v2.x, this.v3.x, this.v4.x),
-            Math.max(this.v1.y, this.v2.y, this.v3.y, this.v4.y)
-        );
+        if (this._bbox == undefined) {
+            this._bbox = new BBox(
+                Math.min(this.v1.x, this.v2.x, this.v3.x, this.v4.x),
+                Math.min(this.v1.y, this.v2.y, this.v3.y, this.v4.y),
+                Math.max(this.v1.x, this.v2.x, this.v3.x, this.v4.x),
+                Math.max(this.v1.y, this.v2.y, this.v3.y, this.v4.y)
+            );
+        }
+        return this._bbox;
     }
 
-    clone(points) {
-        return new Rect(points.v1, points.v2, points.v3, points.v4);
+    clone(points, orientation) {
+        return new Rect(
+            points.centre, this.width, this.height, orientation,
+            {v1: points.v1, v2: points.v2, v3: points.v3, v4: points.v4}
+        );
     }
 
     orientation() {
-        return Math.atan2(
-            this.v2.y - this.v1.y, this.v2.x - this.v1.x
-        );
-    }
-
-    centre() {
-        return new Vector(
-            0.25 * (this.v1.x + this.v2.x + this.v3.x + this.v4.x),
-            0.25 * (this.v1.y + this.v2.y + this.v3.y + this.v4.y)
-        )
+        if (this._orientation == undefined) {
+            this._orientation = Math.atan2(
+                this.v2.y - this.v1.y, this.v2.x - this.v1.x
+            );
+        }
+        return this._orientation;
     }
 
     //draw rectangle to ctx
     draw(ctx) {
         ctx.fillStyle = "red";
 		ctx.save();
-		ctx.translate(this.centre().x, this.centre().y);
+		ctx.translate(this.centre.x, this.centre.y);
 		ctx.rotate(this.orientation());
         ctx.fillRect(
             -this.width * 0.5, -this.height * 0.5, 

@@ -38,7 +38,7 @@ export class Shape extends Base {
     }
 
     //return clone of this with points in new position
-    clone(points) {
+    clone(points, orientation) {
         //placeholder: needs to be overridden in inherited classes
     }
 
@@ -61,6 +61,13 @@ export class Shape extends Base {
         return this.clone(points, this.orientation());
     }
 
+    //translate this by vec
+    translateEq(vec) {
+        for (var key in this.points) {
+            this.points[key].plusEq(vec);
+        }
+    }
+
     //return this rotated by angle about pivot (default: (0,0))
     rotate(angle, pivot) {
         var rot = new Rotation(angle);
@@ -78,6 +85,24 @@ export class Shape extends Base {
             }
         }
         return this.clone(points, this.orientation() + angle);
+    }
+
+    //rotate this by angle about pivot (default: (0,0))
+    rotateEq(angle, pivot) {
+        this._orientation = this.orientation() + angle;
+        var rot = new Rotation(angle);
+        if (pivot == undefined) {
+            for (var key in this.points) {
+                this.points[key] = rot.vMult(points[key])
+            }
+        }
+        else {
+            for (var key in this.points) {
+                this.points[key] = rot.vMult(
+                    this.points[key].minus(pivot)
+                ).plus(pivot)
+            }
+        }
     }
 
     //draw the shape to the context

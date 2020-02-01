@@ -7,13 +7,20 @@ import {Shape} from './shape.mjs';
 export class Line extends Shape {
 
     //construct line from two position vectors
-    constructor(pos1, pos2, orientation, bbox) {
+    constructor(pos1, pos2, orientation) {
         super({pos1:pos1, pos2:pos2});
         this.update();
 
         this._orientation = orientation;
-        this._bbox = bbox;
         this.width = 20;
+    }
+
+    //get x and y coordinates from the two pos vectors
+    update() {
+        this.x1 = this.pos1.x;
+        this.x2 = this.pos2.x;
+        this.y1 = this.pos1.y;
+        this.y2 = this.pos2.y;
     }
 
     bbox() {
@@ -28,30 +35,30 @@ export class Line extends Shape {
         return this._bbox;
     }
 
-    clone(points, angle) {
-        return new Line(points.pos1, points.pos2);
-    }
-
-    //get x and y coordinates from the two pos vectors
-    update() {
-        this.x1 = this.pos1.x;
-        this.x2 = this.pos2.x;
-        this.y1 = this.pos1.y;
-        this.y2 = this.pos2.y;
+    clone(points, orientation) {
+        return new Line(
+            points.pos1, points.pos2, orientation
+        );
     }
 
     //return length of this
     length() {
-        var lineVec = this.pos1.minus(this.pos2);
-        return lineVec.magnitude();
+        if (this._length == undefined) {
+            var lineVec = this.pos1.minus(this.pos2);
+            this._length = lineVec.magnitude();
+        }
+        return this._length;
     }
 
     //return centre of line
     centre() {
-        return new Vector(
-            (this.x1 + this.x2) * 0.5,
-            (this.y1 + this.y2) * 0.5
-        );
+        if (this._centre == undefined) {
+            this._centre = new Vector(
+                (this.x1 + this.x2) * 0.5,
+                (this.y1 + this.y2) * 0.5
+            );
+        }
+        return this._centre;
     }
 
     //DEPRECATE:

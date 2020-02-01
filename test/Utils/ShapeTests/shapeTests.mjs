@@ -1,5 +1,8 @@
 import {Tests} from '../../tests.mjs';
-import {Vector, BBox, Line, Circle, Rect} from '../../exports.mjs';
+import {
+	Vector, Rotation,
+	BBox, Line, Circle, Rect
+} from '../../exports.mjs';
 
 export class ShapeTests extends Tests {
 	
@@ -46,6 +49,10 @@ export class ShapeTests extends Tests {
 		var l3 = new Line(
 			new Vector(1, 2), new Vector(-1, 3)
 		);
+		var l4 = new Line(
+			new Vector(1, 2), new Vector(2, 4)
+		);
+		this.assertEq(l1, l4);
 		this.assertEq(l2, l3);
 	}
 
@@ -69,47 +76,36 @@ export class ShapeTests extends Tests {
 
 	test_rect_translate() {
 		var r1 = new Rect(
-			new Vector(0, 0), new Vector(1, 2),
-			new Vector(3, 1), new Vector(2, -1)
+			new Vector(2, 6), 4, 2, 10
 		);
 		var r2 = r1.translate(new Vector(-1, -1));
 		var r3 = new Rect(
-			new Vector(-1, -1), new Vector(0, 1),
-			new Vector(2, 0), new Vector(1, -2),
+			new Vector(1, 5), 4, 2, 10
 		);
 		this.assertEq(r2, r3);
 	}
 
 	test_rect_rotate() {
 		var r1 = new Rect(
-			new Vector(0, 0), new Vector(1, 2),
-			new Vector(3, 1), new Vector(2, -1)
+			new Vector(2, 1), 3, 5, 5,
 		);
-		var r2 = r1.rotate(Math.PI/2);
+		var rot = new Rotation(3)
+		var r2 = r1.rotate(3);
 		var r3 = new Rect(
-			new Vector(0, 0), new Vector(-2, 1),
-			new Vector(-1, 3), new Vector(1, 2)
+			rot.vMult(new Vector(2, 1)), 3, 5, 8
 		);
 		this.assertEq(r2, r3);
 	}
 
 	test_rect_bbox() {
 		var r1 = new Rect(
-			new Vector(0, 0), new Vector(1, 2),
-			new Vector(3, 1), new Vector(2, -1)
+			new Vector(0, 0), 5, 5, Math.PI/4
 		);
-		var bbox = new BBox(0, -1, 3, 2);
+		const diag = 2.5 * Math.sqrt(2);
+		var bbox = new BBox(
+			-diag, -diag, diag, diag
+		);
 		this.assertEq(r1.bbox(), bbox);
-	}
-
-	test_rect_attributes() {
-		var r1 = new Rect(
-			new Vector(-2, 1), new Vector(-1, 3),
-			new Vector(1, 2), new Vector(0, 0)
-		);
-		this.assertEq(r1.width, Math.sqrt(5));
-		this.assertEq(r1.height, Math.sqrt(5));
-		this.assertEq(r1.orientation(), Math.atan(2));
 	}
 
 }

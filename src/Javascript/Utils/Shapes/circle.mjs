@@ -13,15 +13,22 @@ export class Circle extends Shape {
     }
 
     bbox() {
-        return new BBox(
-            this.centre.x - this.rad,
-            this.centre.y - this.rad,
-            this.centre.x + this.rad,
-            this.centre.y + this.rad
-        );
+        if (this._bbox == undefined) {
+            this._bbox = new BBox(
+                this.centre.x - this.rad,
+                this.centre.y - this.rad,
+                this.centre.x + this.rad,
+                this.centre.y + this.rad
+            );
+        }
+        return this._bbox;
     }
 
-    clone(points) {
+    orientation() {
+        return 0;
+    }
+
+    clone(points, orientation) {
         return new Circle(points.centre, this.rad);
     }
 
