@@ -33,7 +33,7 @@ export class BBox extends Base {
 
     //draw bbox to ctx
     draw(ctx) {
-        ctx.fillStyle = "rgba(233, 212, 96, 0.5)";
+        ctx.fillStyle = "rgba(233, 212, 96, 0.3)";
 		ctx.fillRect(
             this.xmin,
             this.ymin, 
