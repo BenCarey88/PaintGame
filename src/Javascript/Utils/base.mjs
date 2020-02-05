@@ -1,8 +1,8 @@
 //Base class for all classes to inherit from, to allow some easy access custom functions
 
 import {print} from './print.mjs';
-
-const TOLERANCE = 0.00000001
+import {constants} from './constants.mjs';
+import {utils} from './functionUtils.mjs';
 
 export class Base {
 
@@ -11,7 +11,7 @@ export class Base {
 
     //compare two floats
     floatEq(x, y) {
-        return Math.abs(x - y) < TOLERANCE;
+        return utils.floatEq(x, y);
     }
 
     //return string representation of class (normally should be overridden)

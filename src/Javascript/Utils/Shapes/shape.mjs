@@ -25,6 +25,9 @@ export class Shape extends Base {
 
     //reset properties after rotation / translation
     reset() {
+        for (var key in this.points) {
+            this[key] = this.points[key];
+        }
         this._bbox = undefined;
         this._centre = undefined;
     }
@@ -61,9 +64,9 @@ export class Shape extends Base {
 
     //return this translated by vec
     translate(vec) {
-        var points = this.points;
-        for (var key in points) {
-            points[key].plusEq(vec);
+        var points = {};
+        for (var key in this.points) {
+            points[key] = this.points[key].plus(vec);
         }
         return this.clone(points, this.orientation());
     }
@@ -79,16 +82,16 @@ export class Shape extends Base {
     //return this rotated by angle about pivot (default: (0,0))
     rotate(angle, pivot) {
         var rot = new Rotation(angle);
-        var points = this.points;
+        var points = {};
         if (pivot == undefined) {
-            for (var key in points) {
-                points[key] = rot.vMult(points[key])
+            for (var key in this.points) {
+                points[key] = rot.vMult(this.points[key])
             }
         }
         else {
-            for (var key in points) {
+            for (var key in this.points) {
                 points[key] = rot.vMult(
-                    points[key].minus(pivot)
+                    this.points[key].minus(pivot)
                 ).plus(pivot)
             }
         }
@@ -101,7 +104,7 @@ export class Shape extends Base {
         var rot = new Rotation(angle);
         if (pivot == undefined) {
             for (var key in this.points) {
-                this.points[key] = rot.vMult(points[key])
+                this.points[key] = rot.vMult(this.points[key])
             }
         }
         else {

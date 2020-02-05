@@ -82,7 +82,7 @@ export class CollisionDetection extends Tests {
 		);
 	}
 
-	test_circ_line_fully_inside() {
+	test_circ_line_line_fully_inside() {
 		this.assertTrue(
 			collisionCircLine(
 				fixtureList.circ_line.line_in_circle.circ,
@@ -93,6 +93,21 @@ export class CollisionDetection extends Tests {
 			collisionCircLine(
 				fixtureList.circ_line.line_in_circle.circ,
 				fixtureList.circ_line.line_in_circle.rLine,
+			)
+		);
+	}
+
+	test_circ_line_circle_fully_inside() {
+		this.assertTrue(
+			collisionCircLine(
+				fixtureList.circ_line.circle_in_line.circ,
+				fixtureList.circ_line.circle_in_line.line,
+			)
+		);
+		this.assertTrue(
+			collisionCircLine(
+				fixtureList.circ_line.circle_in_line.circ,
+				fixtureList.circ_line.circle_in_line.rLine,
 			)
 		);
 	}
@@ -115,25 +130,56 @@ export class CollisionDetection extends Tests {
 	test_circ_line_boundary_case() {
 		this.assertTrue(
 			collisionCircLine(
-				shapeList.circle3, shapeList.line1
+				fixtureList.circ_line.boundary_case.circ,
+				fixtureList.circ_line.boundary_case.line,
 			)
 		);
-		this.assertFalse(
+		this.assertTrue(
 			collisionCircLine(
-				shapeList.circle1, shapeList.line1
+				fixtureList.circ_line.boundary_case.circ,
+				fixtureList.circ_line.boundary_case.rLine,
+			)
+		);
+	}
+
+	test_circ_line_boundary_case_line_ends() {
+		this.assertTrue(
+			collisionCircLine(
+				fixtureList.circ_line.boundary_case_line_ends.circ,
+				fixtureList.circ_line.boundary_case_line_ends.line,
+			)
+		);
+		this.assertTrue(
+			collisionCircLine(
+				fixtureList.circ_line.boundary_case_line_ends.circ,
+				fixtureList.circ_line.boundary_case_line_ends.rLine,
 			)
 		);
 	}
 
 	test_circ_line_no_collision() {
-		this.assertTrue(
+		this.assertFalse(
 			collisionCircLine(
-				shapeList.circle3, shapeList.line1
+				fixtureList.circ_line.no_intersection.circ_1,
+				fixtureList.circ_line.no_intersection.line_1,
 			)
 		);
 		this.assertFalse(
 			collisionCircLine(
-				shapeList.circle1, shapeList.line1
+				fixtureList.circ_line.no_intersection.circ_1,
+				fixtureList.circ_line.no_intersection.rLine_1,
+			)
+		);
+		this.assertFalse(
+			collisionCircLine(
+				fixtureList.circ_line.no_intersection.circ_2,
+				fixtureList.circ_line.no_intersection.line_2,
+			)
+		);
+		this.assertFalse(
+			collisionCircLine(
+				fixtureList.circ_line.no_intersection.circ_2,
+				fixtureList.circ_line.no_intersection.rLine_2,
 			)
 		);
 	}
