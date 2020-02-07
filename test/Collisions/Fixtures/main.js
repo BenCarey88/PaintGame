@@ -62,3 +62,7 @@ for (var collisionType in fixtureList) {
     }
     offsetY += distY;
 }
+
+fixtureList.circ_rect.boundary_case.circ_side_1.rotate(
+    Math.atan2(3, 4), new Vector(100, 100)
+).print()

@@ -17,13 +17,18 @@ export class Tests extends Base {
     }
 
     //assert that variables x and y are equal (for use in tests)
-    assertEq(x, y) {
+    assertEq(x, y, extraMessage) {
+
+        if(extraMessage == undefined) {
+            extraMessage = "";
+        }
 
         if (typeof x != typeof y) {
             this.passing = false;
             this.failLog.push(
                 `operands to assertEq are not of the same type: `
-                `${typeof x} and ${typeof y}`
+                `${typeof x} and ${typeof y} `
+                `(${extraMessage})`
             );
             return;
         }
@@ -34,14 +39,18 @@ export class Tests extends Base {
             case "boolean":
                 if (x != y) {
                     this.passing = false;
-                    this.failLog.push(`expected ${x} == ${y}`);
+                    this.failLog.push(
+                        `expected ${x} == ${y} (${extraMessage})`
+                    );
                 }
                 break;
     
             case "number":
                 if (!this.floatEq(x, y)) {
                     this.passing = false;
-                    this.failLog.push(`expected ${x} == ${y}`);
+                    this.failLog.push(
+                        `expected ${x} == ${y} (${extraMessage})`
+                    );
                 }
                 break;
 
@@ -53,6 +62,7 @@ export class Tests extends Base {
                             this.passing = false;
                             this.failLog.push(
                                 `expected ${x.string()} == ${y.string()}`
+                                `(${extraMessage})`
                             );
                         }
                         return
@@ -61,6 +71,7 @@ export class Tests extends Base {
                 this.passing = false;
                 this.failLog.push(
                     `unsupported operands to assertEq: type non-custom Object`
+                    `(${extraMessage})`
                 );
                 break;
 
@@ -68,24 +79,35 @@ export class Tests extends Base {
                 this.passing = false;
                 this.failLog.push(
                     `unsupported operands to assertEq: type ${typeof x}`
+                    `(${extraMessage})`
                 );
                 break;
         }
     }
 
     //assert that statement is true (for use in test)
-    assertTrue(statement) {
+    assertTrue(statement, extraMessage) {
         if(!statement) {
             this.passing = false;
-            this.failLog.push("assertTrue called on false statement");
+            if (extraMessage == undefined) {
+                extraMessage = "";
+            }
+            this.failLog.push(
+                `assertTrue called on false statement (${extraMessage})`
+            );
         }
     }
 
     //assert that statement is false (for use in test)
-    assertFalse(statement) {
+    assertFalse(statement, extraMessage) {
         if(statement) {
             this.passing = false;
-            this.failLog.push("assertFalse called on true statement");
+            if (extraMessage == undefined) {
+                extraMessage = "";
+            }
+            this.failLog.push(
+                `assertFalse called on true statement (${extraMessage})`
+            );
         }
     }
 

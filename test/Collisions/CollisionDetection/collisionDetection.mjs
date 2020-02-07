@@ -287,25 +287,28 @@ export class CollisionDetection extends Tests {
 	}
 
 	test_circ_rect_boundary_case_rotated() {
-		var rects = [
-			fixtureList.circ_rect.boundary_case_rotated.rect,
-			fixtureList.circ_rect.boundary_case_rotated.rect_90,
-			fixtureList.circ_rect.boundary_case_rotated.rect_180,
-			fixtureList.circ_rect.boundary_case_rotated.rect_270,
-		];
-		var circs = [
-			fixtureList.circ_rect.boundary_case_rotated.circ_side_1,
-			fixtureList.circ_rect.boundary_case_rotated.circ_side_2,
-			fixtureList.circ_rect.boundary_case_rotated.circ_side_3,
-			fixtureList.circ_rect.boundary_case_rotated.circ_side_4,
-			fixtureList.circ_rect.boundary_case_rotated.circ_corner_1,
-			fixtureList.circ_rect.boundary_case_rotated.circ_corner_2,
-			fixtureList.circ_rect.boundary_case_rotated.circ_corner_3,
-			fixtureList.circ_rect.boundary_case_rotated.circ_corner_4,
-		];
-		for (var rect of rects) {
-			for (var circ of circs) {
-				this.assertTrue(collisionCircRect(circ, rect));
+		var rects = {
+			rect: fixtureList.circ_rect.boundary_case_rotated.rect,
+			rect_90: fixtureList.circ_rect.boundary_case_rotated.rect_90,
+			rect_180: fixtureList.circ_rect.boundary_case_rotated.rect_180,
+			rect_270: fixtureList.circ_rect.boundary_case_rotated.rect_270,
+		};
+		var circs = {
+			circ_side_1: fixtureList.circ_rect.boundary_case_rotated.circ_side_1,
+			circ_side_2: fixtureList.circ_rect.boundary_case_rotated.circ_side_2,
+			circ_side_3: fixtureList.circ_rect.boundary_case_rotated.circ_side_3,
+			circ_side_4: fixtureList.circ_rect.boundary_case_rotated.circ_side_4,
+			circ_corner_1: fixtureList.circ_rect.boundary_case_rotated.circ_corner_1,
+			circ_corner_2: fixtureList.circ_rect.boundary_case_rotated.circ_corner_2,
+			circ_corner_3: fixtureList.circ_rect.boundary_case_rotated.circ_corner_3,
+			circ_corner_4: fixtureList.circ_rect.boundary_case_rotated.circ_corner_4,
+		};
+		for (var rect in rects) {
+			for (var circ in circs) {
+				this.assertTrue(
+					collisionCircRect(circs[circ], rects[rect]),
+					`${circ}, ${rect}`
+				);
 			}
 		}
 	}
@@ -347,6 +350,7 @@ export class CollisionDetection extends Tests {
 		var circs = [
 			fixtureList.circ_rect.no_intersection.circ_1,
 			fixtureList.circ_rect.no_intersection.circ_2,
+			fixtureList.circ_rect.no_intersection.circ_3,
 		];
 		for (var rect of rects) {
 			for (var circ of circs) {

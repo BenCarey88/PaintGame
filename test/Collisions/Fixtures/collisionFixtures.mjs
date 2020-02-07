@@ -350,7 +350,7 @@ circ_rect.boundary_case_rotated = {
     ),
 
     circ_side_1: new Circle(
-        new Vector(144, 44), 20
+        new Vector(142, 44), 20
     ),
     circ_side_2: new Circle(
         new Vector(152, 139), 15
@@ -429,6 +429,10 @@ circ_rect.no_intersection = {
     ),
     circ_2: new Circle(
         new Vector(40, 70), 40
+    ),
+
+    circ_3: new Circle(
+        new Vector(-110, 120), 15
     ),
 
     FIXTURE_LENGTH: 140,

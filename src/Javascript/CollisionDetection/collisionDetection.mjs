@@ -77,11 +77,11 @@ export function collisionCircRect(circle, rect) {
         }
         else if (centre.y > ymax) {
             return utils.lessOrEq(
-                (rect.v4.minus(centre)).magnitude(), circle.rad
+                (rect.v3.minus(centre)).magnitude(), circle.rad
             );
         }
         else {
-            return utils.greaterOrEq(centre.x - circle.rad, xmax);
+            return utils.lessOrEq(centre.x - circle.rad, xmax);
         }
     }
     else {
@@ -89,7 +89,7 @@ export function collisionCircRect(circle, rect) {
             return utils.greaterOrEq(centre.y + circle.rad, ymin);
         }
         else {
-            return utils.greaterOrEq(centre.y - circle.rad, ymin);
+            return utils.lessOrEq(centre.y - circle.rad, ymax);
         }
     }
 }
