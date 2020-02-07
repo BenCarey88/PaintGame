@@ -184,17 +184,175 @@ export class CollisionDetection extends Tests {
 		);
 	}
 
-	// test_circ_rect_collision() {
-	// 	this.assertTrue(
-	// 		collisionCircRect(
-	// 			shapeList.circle4, shapeList.rect1
-	// 		)
-	// 	);
-	// 	this.assertFalse(
-	// 		collisionCircRect(
-	// 			shapeList.circle2, shapeList.rect2
-	// 		)
-	// 	);
-	// }
+//------------------------
+//CIRCLE-LINE COLLISIONS
+//------------------------
+
+	test_circ_rect_collision_sides() {
+		var rects = [
+			fixtureList.circ_rect.collision_sides.rect,
+			fixtureList.circ_rect.collision_sides.rRect,
+		];
+		var circs = [
+			fixtureList.circ_rect.collision_sides.circ_1,
+			fixtureList.circ_rect.collision_sides.circ_2,
+			fixtureList.circ_rect.collision_sides.circ_3,
+			fixtureList.circ_rect.collision_sides.circ_4,
+		];
+		for (var rect of rects) {
+			for (var circ of circs) {
+				this.assertTrue(collisionCircRect(circ, rect));
+			}
+		}
+	}
+
+	test_circ_rect_collision_corners() {
+		var rects = [
+			fixtureList.circ_rect.collision_corners.rect,
+			fixtureList.circ_rect.collision_corners.rRect,
+		];
+		var circs = [
+			fixtureList.circ_rect.collision_corners.circ_1,
+			fixtureList.circ_rect.collision_corners.circ_2,
+			fixtureList.circ_rect.collision_corners.circ_3,
+			fixtureList.circ_rect.collision_corners.circ_4,
+		];
+		for (var rect of rects) {
+			for (var circ of circs) {
+				this.assertTrue(collisionCircRect(circ, rect));
+			}
+		}
+	}
+
+	test_circ_rect_collision_greater_overlap() {
+		var rects = [
+			fixtureList.circ_rect.collision_greater_overlap.rect,
+			fixtureList.circ_rect.collision_greater_overlap.rRect,
+		];
+		var circs = [
+			fixtureList.circ_rect.collision_greater_overlap.circ_1,
+			fixtureList.circ_rect.collision_greater_overlap.circ_2,
+		];
+		for (var rect of rects) {
+			for (var circ of circs) {
+				this.assertTrue(collisionCircRect(circ, rect));
+			}
+		}
+	}
+
+	test_circ_rect_boundary_case() {
+		var rects = [
+			fixtureList.circ_rect.boundary_case.rect,
+			fixtureList.circ_rect.boundary_case.rRect,
+		];
+		var circs = [
+			fixtureList.circ_rect.boundary_case.circ_side_1,
+			fixtureList.circ_rect.boundary_case.circ_side_2,
+			fixtureList.circ_rect.boundary_case.circ_side_3,
+			fixtureList.circ_rect.boundary_case.circ_side_4,
+			fixtureList.circ_rect.boundary_case.circ_corner_1,
+			fixtureList.circ_rect.boundary_case.circ_corner_2,
+			fixtureList.circ_rect.boundary_case.circ_corner_3,
+			fixtureList.circ_rect.boundary_case.circ_corner_4,
+		];
+		for (var rect of rects) {
+			for (var circ of circs) {
+				this.assertTrue(collisionCircRect(circ, rect));
+			}
+		}
+	}
+
+	test_circ_rect_boundary_case() {
+		var rects = [
+			fixtureList.circ_rect.boundary_case.rect,
+			fixtureList.circ_rect.boundary_case.rect_90,
+			fixtureList.circ_rect.boundary_case.rect_180,
+			fixtureList.circ_rect.boundary_case.rect_270,
+		];
+		var circs = [
+			fixtureList.circ_rect.boundary_case.circ_side_1,
+			fixtureList.circ_rect.boundary_case.circ_side_2,
+			fixtureList.circ_rect.boundary_case.circ_side_3,
+			fixtureList.circ_rect.boundary_case.circ_side_4,
+			fixtureList.circ_rect.boundary_case.circ_corner_1,
+			fixtureList.circ_rect.boundary_case.circ_corner_2,
+			fixtureList.circ_rect.boundary_case.circ_corner_3,
+			fixtureList.circ_rect.boundary_case.circ_corner_4,
+		];
+		for (var rect of rects) {
+			for (var circ of circs) {
+				this.assertTrue(collisionCircRect(circ, rect));
+			}
+		}
+	}
+
+	test_circ_rect_boundary_case_rotated() {
+		var rects = [
+			fixtureList.circ_rect.boundary_case_rotated.rect,
+			fixtureList.circ_rect.boundary_case_rotated.rect_90,
+			fixtureList.circ_rect.boundary_case_rotated.rect_180,
+			fixtureList.circ_rect.boundary_case_rotated.rect_270,
+		];
+		var circs = [
+			fixtureList.circ_rect.boundary_case_rotated.circ_side_1,
+			fixtureList.circ_rect.boundary_case_rotated.circ_side_2,
+			fixtureList.circ_rect.boundary_case_rotated.circ_side_3,
+			fixtureList.circ_rect.boundary_case_rotated.circ_side_4,
+			fixtureList.circ_rect.boundary_case_rotated.circ_corner_1,
+			fixtureList.circ_rect.boundary_case_rotated.circ_corner_2,
+			fixtureList.circ_rect.boundary_case_rotated.circ_corner_3,
+			fixtureList.circ_rect.boundary_case_rotated.circ_corner_4,
+		];
+		for (var rect of rects) {
+			for (var circ of circs) {
+				this.assertTrue(collisionCircRect(circ, rect));
+			}
+		}
+	}
+
+	test_circ_rect_fully_inside() {
+		this.assertTrue(
+			collisionCircRect(
+				fixtureList.circ_rect.fully_inside.circ_1,
+				fixtureList.circ_rect.fully_inside.rect_1,
+			)
+		);
+		this.assertTrue(
+			collisionCircRect(
+				fixtureList.circ_rect.fully_inside.circ_1,
+				fixtureList.circ_rect.fully_inside.rRect_1,
+			)
+		);
+		this.assertTrue(
+			collisionCircRect(
+				fixtureList.circ_rect.fully_inside.circ_2,
+				fixtureList.circ_rect.fully_inside.rect_2,
+			)
+		);
+		this.assertTrue(
+			collisionCircRect(
+				fixtureList.circ_rect.fully_inside.circ_2,
+				fixtureList.circ_rect.fully_inside.rRect_2,
+			)
+		);
+	}
+
+	test_circ_rect_no_intersection() {
+		var rects = [
+			fixtureList.circ_rect.no_intersection.rect_1,
+			fixtureList.circ_rect.no_intersection.rRect_1,
+			fixtureList.circ_rect.no_intersection.rect_2,
+			fixtureList.circ_rect.no_intersection.rRect_2,
+		];
+		var circs = [
+			fixtureList.circ_rect.no_intersection.circ_1,
+			fixtureList.circ_rect.no_intersection.circ_2,
+		];
+		for (var rect of rects) {
+			for (var circ of circs) {
+				this.assertFalse(collisionCircRect(circ, rect));
+			}
+		}
+	}
 
 }

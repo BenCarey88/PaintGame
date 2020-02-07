@@ -206,112 +206,243 @@ circ_line.no_intersection = {
     FIXTURE_LENGTH: 220,
 }
 
+//---------------------------------------
+//CIRCLE-RECT COLLISIONS
+//---------------------------------------
+var circ_rect = {
+    FIXTURE_HEIGHT: 150
+};
 
+circ_rect.collision_sides = {
+    rect: new Rect(
+        new Vector(100, 90), 60, 100, Math.PI/3
+    ),
+    rRect: new Rect(
+        new Vector(100, 90), 60, 100, Math.PI * 4/3
+    ),
+    circ_1: new Circle(
+        new Vector(80, 75), 20
+    ),
+    circ_2: new Circle(
+        new Vector(150, 60), 15
+    ),
+    circ_3: new Circle(
+        new Vector(120, 130), 40
+    ),
+    circ_4: new Circle(
+        new Vector(50, 120), 20
+    ),
 
+    FIXTURE_LENGTH: 150,
+    FIXTURE_TRANSFORM: new Vector(-20, -20),
+    FIXTURE_SCALE: 0.9,
+};
 
-var circle6_1 = new Circle(
-    new Vector(70, 200), 20   
-);
-var line6_2 = new Line(
-    new Vector(50, 150),
-    new Vector(120, 220)
-);
-var rLine6_2 = new Line(
-    new Vector(200, 300),
-    new Vector(50, 100)
-);
-//collision, end of line intersects sphere
-var circle7_1 = new Circle(
-    new Vector(70, 150), 20   
-);
-var line7_2 = new Line(
-    new Vector(640, 100), 20
-);
+circ_rect.collision_corners = {
+    rect: new Rect(
+        new Vector(100, 100), 100, 60, 2 * Math.PI/3
+    ),
+    rRect: new Rect(
+        new Vector(100, 100), 100, 60, 5 * Math.PI * 4/3
+    ),
+    circ_1: new Circle(
+        new Vector(95, 55), 20
+    ),
+    circ_2: new Circle(
+        new Vector(160, 70), 15
+    ),
+    circ_3: new Circle(
+        new Vector(100, 150), 30
+    ),
+    circ_4: new Circle(
+        new Vector(45, 125), 20
+    ),
 
+    FIXTURE_LENGTH: 150,
+    FIXTURE_TRANSFORM: new Vector(-20, -20),
+    FIXTURE_SCALE: 0.9,
+};
 
-var circle1 = new Circle(
-    new Vector(120, 150), 30
-);
-var circle2 = new Circle(
-    new Vector(180, 150), 50
-);
-var circle3 = new Circle(
-    new Vector(300, 150), 30
-);
-var circle4 = new Circle(
-    new Vector(500, 150), 50
-);
+circ_rect.collision_greater_overlap = {
+    circ_1: new Circle(
+        new Vector(90, 80), 40
+    ),
+    circ_2: new Circle(
+        new Vector(130, 150), 40
+    ),
+    rect: new Rect(
+        new Vector(100, 100), 100, 60, -2 * Math.PI/3
+    ),
+    rRect: new Rect(
+        new Vector(100, 100), 100, 60, -5 * Math.PI * 4/3
+    ),
 
-var line1 = new Line(
-    new Vector(300, 250),
-    new Vector(350, 100)
-);
-var line2 = new Line(
-    new Vector(100, 500),
-    new Vector(200, 300)
-);
-var line3 = new Line(
-    new Vector(100, 400),
-    new Vector(200, 350)
-);
-var line4 = new Line(
-    new Vector(400, 300),
-    new Vector(300, 400)
-);
+    FIXTURE_LENGTH: 140,
+    FIXTURE_TRANSFORM: new Vector(-30, -30),
+    FIXTURE_SCALE: 0.9,
+};
 
-var rect1 = new Rect(
-    new Vector(520, 150),
-    100, 50, Math.PI/6
-);
-var rect2 = new Rect(
-    new Vector(300, 400),
-    100, 100, Math.PI
-);
-var rect3 = new Rect(
-    new Vector(550, 300),
-    200, 100, 0
-);
-var rect4 = new Rect(
-    new Vector(500, 380),
-    50, 100, Math.PI/3 
-);
+circ_rect.boundary_case = {
+    rect: new Rect(
+        new Vector(100, 100), 100, 100, 2*Math.PI
+    ),
+    rect_90: new Rect(
+        new Vector(100, 100), 100, 100, Math.PI/2
+    ),
+    rect_180: new Rect(
+        new Vector(100, 100), 100, 100, -Math.PI
+    ),
+    rect_270: new Rect(
+        new Vector(100, 100), 100, 100, Math.PI * 3/2
+    ),
+
+    circ_side_1: new Circle(
+        new Vector(100, 30), 20
+    ),
+    circ_side_2: new Circle(
+        new Vector(165, 100), 15
+    ),
+    circ_side_3: new Circle(
+        new Vector(110, 170), 20
+    ),
+    circ_side_4: new Circle(
+        new Vector(30, 150), 20
+    ),
+
+    circ_corner_1: new Circle(
+        new Vector(38, 34), 20
+    ),
+    circ_corner_2: new Circle(
+        new Vector(
+            150 + Math.sqrt(2) * 25 * 0.5,
+            50 - Math.sqrt(2) * 25 * 0.5
+        ),
+        25
+    ),
+    circ_corner_3: new Circle(
+        new Vector(170, 165), 25
+    ),
+    circ_corner_4: new Circle(
+        new Vector(30, 150), 20
+    ),
+
+    FIXTURE_LENGTH: 150,
+    FIXTURE_TRANSFORM: new Vector(0, 5),
+    FIXTURE_SCALE: 0.7,
+};
+
+circ_rect.boundary_case_rotated = {
+    rect: new Rect(
+        new Vector(100, 100), 100, 100,
+        Math.atan2(3, 4)
+    ),
+    rect_90: new Rect(
+        new Vector(100, 100), 100, 100,
+        Math.PI/2 + Math.atan2(3, 4)
+    ),
+    rect_180: new Rect(
+        new Vector(100, 100), 100, 100,
+        Math.PI + Math.atan2(3, 4)
+    ),
+    rect_270: new Rect(
+        new Vector(100, 100), 100, 100,
+        Math.PI * 3/2 + Math.atan2(3, 4)
+    ),
+
+    circ_side_1: new Circle(
+        new Vector(144, 44), 20
+    ),
+    circ_side_2: new Circle(
+        new Vector(152, 139), 15
+    ),
+    circ_side_3: new Circle(
+        new Vector(66, 162), 20
+    ),
+    circ_side_4: new Circle(
+        new Vector(14, 98), 20
+    ),
+
+    circ_corner_1: new Circle(
+        new Vector(90, 10), 20
+    ),
+    circ_corner_2: new Circle(
+        new Vector(
+            194.74873734152916,
+            86.46446609406726
+        ),
+        25
+    ),
+    circ_corner_3: new Circle(
+        new Vector(117, 194), 25
+    ),
+    circ_corner_4: new Circle(
+        new Vector(14, 98), 20
+    ),
+
+    FIXTURE_LENGTH: 150,
+    FIXTURE_TRANSFORM: new Vector(10, 10),
+    FIXTURE_SCALE: 0.6,
+};
+
+circ_rect.fully_inside = {
+    rect_1: new Rect(
+        new Vector(-30, 40), 80, 90, Math.PI/4
+    ),
+    rRect_1: new Rect(
+        new Vector(-30, 40), 80, 90, Math.PI * 5/4
+    ),
+    circ_1: new Circle(
+        new Vector(-30, 30), 30
+    ),
+
+    circ_2: new Circle(
+        new Vector(-30, 150), 40
+    ),
+    rect_2: new Rect(
+        new Vector(-30, 150), 40, 60, -Math.PI/4
+    ),
+    rRect_2: new Rect(
+        new Vector(-30, 150), 40, 60, -Math.PI * 5/4
+    ),
+
+    FIXTURE_LENGTH: 100,
+    FIXTURE_TRANSFORM: new Vector(70, 25),
+    FIXTURE_SCALE: 0.6,
+};
+
+circ_rect.no_intersection = {
+    rect_1: new Rect(
+        new Vector(-30, -30), 80, 90, 13
+    ),
+    rRect_1: new Rect(
+        new Vector(-30, -30), 80, 90, Math.PI + 13
+    ),
+    circ_1: new Circle(
+        new Vector(-90, -80), 20
+    ),
+
+    rect_2: new Rect(
+        new Vector(-60, 80), 60, 70, 10
+    ),
+    rRect_2: new Rect(
+        new Vector(-60, 80), 60, 70, Math.PI + 10
+    ),
+    circ_2: new Circle(
+        new Vector(40, 70), 40
+    ),
+
+    FIXTURE_LENGTH: 140,
+    FIXTURE_TRANSFORM: new Vector(80, 65),
+    FIXTURE_SCALE: 0.6,
+}
+
+//-----------------------------------------
+
 
 export var fixtureList = {
     
     circ_circ: circ_circ,
     circ_line: circ_line,
-    // circle1_1: circle1_1,
-    // circle1_2: circle1_2,
-    // circle2_1: circle2_1,
-    // circle2_2: circle2_2,
-    // circle3_1: circle3_1,
-    // circle3_2: circle3_2,
-    // circle4_1: circle4_1,
-    // circle4_2: circle4_2,
-    // circle5_1: circle5_1,
-    // circle5_2: circle5_2,
+    circ_rect: circ_rect,
 
-    // circle6_1: circle6_1,
-    // line6_2: line6_2,
-    // circle7_1: circle7_1,
-    // line7_2: line7_2,
-    // circle8_1: circle8_1,
-    // line8_2: line8_2,
-    // circle9_1: circle9_1,
-    // line9_2: line9_2,
-    // circle10_1: circle10_1,
-    // line10_2: line10_2,
-
-    // circle1: circle1,
-    // circle2: circle2,
-    // circle3: circle3,
-    // circle4: circle4,
-    // line1: line1,
-    // line2: line2,
-    // line3: line3,
-    // line4: line4,
-    // rect1: rect1,
-    // rect2: rect2,
-    // rect3: rect3,
-    // rect4: rect4,
 };
