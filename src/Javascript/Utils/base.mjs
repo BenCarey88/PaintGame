@@ -13,6 +13,12 @@ export class Base {
     floatEq(x, y) {
         return utils.floatEq(x, y);
     }
+    lessOrEq(x, y) {
+        return utils.lessOrEq(x,y);
+    }
+    greaterOrEq(x, y) {
+        return utils.greaterOrEq(x,y);
+    }
 
     //return string representation of class (normally should be overridden)
     string() {

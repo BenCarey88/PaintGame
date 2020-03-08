@@ -47,6 +47,11 @@ export class Shape extends Base {
         return true;
     }
 
+    //compare if bounding box of this overlaps bounding box of shape
+    bboxCompare(shape) {
+        return this.bbox().intersect(shape.bbox())
+    }
+
     //return clone of this with points in new position
     clone(points, orientation) {
         //placeholder: needs to be overridden in inherited classes

@@ -17,11 +17,7 @@ export class Tests extends Base {
     }
 
     //assert that variables x and y are equal (for use in tests)
-    assertEq(x, y, extraMessage) {
-
-        if(extraMessage == undefined) {
-            extraMessage = "";
-        }
+    assertEq(x, y, extraMessage="") {
 
         if (typeof x != typeof y) {
             this.passing = false;
@@ -86,12 +82,9 @@ export class Tests extends Base {
     }
 
     //assert that statement is true (for use in test)
-    assertTrue(statement, extraMessage) {
+    assertTrue(statement, extraMessage="") {
         if(!statement) {
             this.passing = false;
-            if (extraMessage == undefined) {
-                extraMessage = "";
-            }
             this.failLog.push(
                 `assertTrue called on false statement (${extraMessage})`
             );
@@ -99,12 +92,9 @@ export class Tests extends Base {
     }
 
     //assert that statement is false (for use in test)
-    assertFalse(statement, extraMessage) {
+    assertFalse(statement, extraMessage="") {
         if(statement) {
             this.passing = false;
-            if (extraMessage == undefined) {
-                extraMessage = "";
-            }
             this.failLog.push(
                 `assertFalse called on true statement (${extraMessage})`
             );

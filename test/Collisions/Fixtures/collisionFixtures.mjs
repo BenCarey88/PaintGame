@@ -1,4 +1,5 @@
 import {Vector, BBox, Circle, Line, Rect} from '../../exports.mjs';
+import {Fixture} from '../../fixture.mjs';
 
 //---------------------------------------
 //CIRCLE-CIRCLE COLLISIONS
@@ -23,6 +24,15 @@ circ_circ.full_overlap = {
     ),
     circ_2: new Circle (
         new Vector(80, 80), 50
+    ),
+};
+//fully inside
+circ_circ.fully_inside = {
+    circ_1: new Circle (
+        new Vector(80, 80), 50
+    ),
+    circ_2: new Circle (
+        new Vector(80, 60), 20
     ),
 };
 //boundaries touching
@@ -440,13 +450,65 @@ circ_rect.no_intersection = {
     FIXTURE_SCALE: 0.6,
 }
 
+//---------------------------------------
+//CIRCLE-RECT COLLISIONS
+//---------------------------------------
+var rect_rect = {
+    FIXTURE_HEIGHT: 180
+};
+
+rect_rect.collision = {
+    rect1: new Rect(
+        new Vector(100, 100), 100, 60, 2 * Math.PI/3
+    ),
+    rRect1: new Rect(
+        new Vector(100, 100), 100, 60, 5 * Math.PI/3
+    ),
+    rect2: new Rect(
+        new Vector(150, 150), 80, 90, 30
+    ),
+    rRect2: new Rect(
+        new Vector(150, 150), 80, 90, 30 + Math.PI
+    ),
+
+    FIXTURE_LENGTH: 180,
+    FIXTURE_TRANSFORM: new Vector(-20, -20),
+    FIXTURE_SCALE: 0.9,
+};
+
+rect_rect.no_collision = {
+    rect1: new Rect(
+        new Vector(80, 90), 50, 100, Math.PI/3
+    ),
+    rRect1: new Rect(
+        new Vector(80, 90), 50, 100,  4 * Math.PI/3
+    ),
+    rect2: new Rect(
+        new Vector(100, 200), 60, 60, -Math.PI/6
+    ),
+    rRect2: new Rect(
+        new Vector(100, 200), 60, 60, -7*Math.PI/6
+    ),
+    rect3: new Rect(
+        new Vector(160, 150), 60, 60, 10
+    ),
+    rRect3: new Rect(
+        new Vector(160, 150), 60, 60, 10 - Math.PI
+    ),
+
+    FIXTURE_LENGTH: 180,
+    FIXTURE_TRANSFORM: new Vector(0, -20),
+    FIXTURE_SCALE: 0.8,
+};
+
+
 //-----------------------------------------
 
-
-export var fixtureList = {
-    
-    circ_circ: circ_circ,
-    circ_line: circ_line,
-    circ_rect: circ_rect,
-
-};
+export var fixture = new Fixture(
+    {
+        circ_circ: circ_circ,
+        circ_line: circ_line,
+        circ_rect: circ_rect,
+        rect_rect: rect_rect,
+    }
+);

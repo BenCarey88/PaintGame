@@ -26,8 +26,14 @@ export class BBox extends Base {
     //check if this intersects other bbox
     intersect(bbox) {
         return (
-            Math.max(this.xmin, bbox.xmin) <= Math.min(this.xmax, bbox.xmax) &&
-            Math.max(this.ymin, bbox.ymin) <= Math.min(this.ymax, bbox.ymax)
+            this.lessOrEq(
+                Math.max(this.xmin, bbox.xmin),
+                Math.min(this.xmax, bbox.xmax)
+            ) &&
+            this.lessOrEq(
+                Math.max(this.ymin, bbox.ymin),
+                Math.min(this.ymax, bbox.ymax)
+            )
         );
     }
 

@@ -26,5 +26,20 @@ printColour("Utils", "orange")
 newLine();
 printColour("Collisions", "orange")
 
-	import {CollisionDetection} from './Collisions/CollisionDetection/collisionDetection.mjs';
-	runTests(CollisionDetection, './Collisions/CollisionDetection/collisionDetection.html');
+	import {CircCircCollisions} from './Collisions/CircCircCollisions/circCircCollisions.mjs'
+	runTests(CircCircCollisions, './Collisions/CircCircCollisions/circCircCollisions.html')
+
+	import {CircLineCollisions} from './Collisions/CircLineCollisions/circLineCollisions.mjs'
+	runTests(CircLineCollisions, './Collisions/CircLineCollisions/circLineCollisions.html')
+
+	import {CircRectCollisions} from './Collisions/CircRectCollisions/circRectCollisions.mjs'
+	runTests(CircRectCollisions, './Collisions/CircRectCollisions/circRectCollisions.html')
+
+	import {LineLineCollisions} from './Collisions/LineLineCollisions/lineLineCollisions.mjs'
+	runTests(LineLineCollisions, './Collisions/LineLineCollisions/lineLineCollisions.html')
+
+	import {RectLineCollisions} from './Collisions/RectLineCollisions/rectLineCollisions.mjs'
+	runTests(RectLineCollisions, './Collisions/RectLineCollisions/rectLineCollisions.html')
+
+	import {RectRectCollisions} from './Collisions/RectRectCollisions/rectRectCollisions.mjs'
+	runTests(RectRectCollisions, './Collisions/RectRectCollisions/rectRectCollisions.html')
