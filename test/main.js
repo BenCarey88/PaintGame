@@ -35,11 +35,11 @@ printColour("Collisions", "orange")
 	import {CircRectCollisions} from './Collisions/CircRectCollisions/circRectCollisions.mjs'
 	runTests(CircRectCollisions, './Collisions/CircRectCollisions/circRectCollisions.html')
 
+	import {RectRectCollisions} from './Collisions/RectRectCollisions/rectRectCollisions.mjs'
+	runTests(RectRectCollisions, './Collisions/RectRectCollisions/rectRectCollisions.html')
+
 	import {LineLineCollisions} from './Collisions/LineLineCollisions/lineLineCollisions.mjs'
 	runTests(LineLineCollisions, './Collisions/LineLineCollisions/lineLineCollisions.html')
 
 	import {RectLineCollisions} from './Collisions/RectLineCollisions/rectLineCollisions.mjs'
 	runTests(RectLineCollisions, './Collisions/RectLineCollisions/rectLineCollisions.html')
-
-	import {RectRectCollisions} from './Collisions/RectRectCollisions/rectRectCollisions.mjs'
-	runTests(RectRectCollisions, './Collisions/RectRectCollisions/rectRectCollisions.html')

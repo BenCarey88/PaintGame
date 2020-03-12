@@ -10,9 +10,25 @@ export class Fixture extends Base {
     
     constructor(fixtureList){
         super();
+        
+        //fixtureList is dict with all FIXTURE metadata
         this.fixtureList = fixtureList;
+        
+        //now add the dict diretly as attributes but remove FIXTURE metadata
         for (var testType in fixtureList) {
-            this[testType] = fixtureList[testType]
+            this[testType] = {};
+            for (var test in fixtureList[testType]) {
+                if (test.startsWith(FIXTURE)) {
+                    continue
+                }
+                this[testType][test] = {};
+                for(var shape in fixtureList[testType][test]) {
+                    if (shape.startsWith(FIXTURE)) {
+                        continue
+                    }
+                    this[testType][test][shape] = fixtureList[testType][test][shape];
+                }
+            }
         }
     }
 
@@ -23,39 +39,39 @@ export class Fixture extends Base {
             
             var offsetX = 0;
             var distY = 150;
-            if (this[testType][FIXTURE_HEIGHT] != undefined) {
-                distY = this[testType][FIXTURE_HEIGHT];
+            if (this.fixtureList[testType][FIXTURE_HEIGHT] != undefined) {
+                distY = this.fixtureList[testType][FIXTURE_HEIGHT];
             }
 
-            for (var test in this[testType]) {
+            for (var test in this.fixtureList[testType]) {
                 if (test.startsWith(FIXTURE)) {
                     continue;
                 }
 
-                for (var shape in this[testType][test]) {
+                for (var shape in this.fixtureList[testType][test]) {
                     if (shape.startsWith(FIXTURE)) {
                         continue;
                     }
                     ctx.save();
                     ctx.translate(offsetX, offsetY);
-                    if (this[testType][test][FIXTURE_TRANSLATE] != undefined) {
-                        var translate = this[testType][test][FIXTURE_TRANSLATE];
+                    if (this.fixtureList[testType][test][FIXTURE_TRANSLATE] != undefined) {
+                        var translate = this.fixtureList[testType][test][FIXTURE_TRANSLATE];
                         ctx.translate(translate.x, translate.y);
                     }
-                    if (this[testType][test][FIXTURE_SCALE] != undefined) {
-                        var scale = this[testType][test][FIXTURE_SCALE];
+                    if (this.fixtureList[testType][test][FIXTURE_SCALE] != undefined) {
+                        var scale = this.fixtureList[testType][test][FIXTURE_SCALE];
                         ctx.scale(scale, scale);
                     }
-                    this[testType][test][shape].draw(ctx);
+                    this.fixtureList[testType][test][shape].draw(ctx);
                     if (drawBBox) {
-                        this[testType][test][shape].bbox().draw(ctx);
+                        this.fixtureList[testType][test][shape].bbox().draw(ctx);
                     }
                     ctx.restore();
                 }
 
                 var distX = 150;
-                if (this[testType][test][FIXTURE_LENGTH] != undefined) {
-                    distX = this[testType][test][FIXTURE_LENGTH];
+                if (this.fixtureList[testType][test][FIXTURE_LENGTH] != undefined) {
+                    distX = this.fixtureList[testType][test][FIXTURE_LENGTH];
                 }
 
                 ctx.save();

@@ -133,8 +133,8 @@ export class Tests extends Base {
         let currentObj = this;
         do {
             Object.getOwnPropertyNames(currentObj).map(item => properties.add(item))
-        } while ((currentObj = Object.getPrototypeOf(currentObj)));
-    
+        } while (currentObj = Object.getPrototypeOf(currentObj));
+
         //take all attributes that are test methods
         var tests = [...properties.keys()].filter(
             item => (

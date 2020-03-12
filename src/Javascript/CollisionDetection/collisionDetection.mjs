@@ -117,11 +117,11 @@ export function collisionRectRect(rect1, rect2) {
 
     //if rect2 is also horizontal, just bbox compare
     var rect2Horizontal = utils.floatEq(
-        rect1.orientation()/(Math.PI * 0.5) % 1.0,
+        rect2.orientation()/(Math.PI * 0.5) % 1.0,
         0
-    )
+    );
     if (rect2Horizontal) {
-        return rect2.bboxCompare(rect1)
+        return rect2.bboxCompare(rect1);
     }
 
     var linesRect2 = [
@@ -176,5 +176,6 @@ export function collisionRectRect(rect1, rect2) {
             }
         }
     }
+    return false;
 
 }

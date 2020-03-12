@@ -6,19 +6,20 @@ import {collisionCircLine} from '../../exports.mjs';
 export class CircLineCollisions extends Tests {
 	constructor() {
 		super();
+		this.fixture = fixture.circ_line;
 	}
 
 	test_centre_collision() {
 		this.assertTrue(
 			collisionCircLine(
-				fixture.circ_line.centre_collision.circ,
-				fixture.circ_line.centre_collision.line,
+				this.fixture.centre_collision.circ,
+				this.fixture.centre_collision.line,
 			)
 		);
 		this.assertTrue(
 			collisionCircLine(
-				fixture.circ_line.centre_collision.circ,
-				fixture.circ_line.centre_collision.rLine,
+				this.fixture.centre_collision.circ,
+				this.fixture.centre_collision.rLine,
 			)
 		);
 	}
@@ -26,14 +27,14 @@ export class CircLineCollisions extends Tests {
 	test_line_fully_inside() {
 		this.assertTrue(
 			collisionCircLine(
-				fixture.circ_line.line_in_circle.circ,
-				fixture.circ_line.line_in_circle.line,
+				this.fixture.line_in_circle.circ,
+				this.fixture.line_in_circle.line,
 			)
 		);
 		this.assertTrue(
 			collisionCircLine(
-				fixture.circ_line.line_in_circle.circ,
-				fixture.circ_line.line_in_circle.rLine,
+				this.fixture.line_in_circle.circ,
+				this.fixture.line_in_circle.rLine,
 			)
 		);
 	}
@@ -41,14 +42,14 @@ export class CircLineCollisions extends Tests {
 	test_circle_fully_inside() {
 		this.assertTrue(
 			collisionCircLine(
-				fixture.circ_line.circle_in_line.circ,
-				fixture.circ_line.circle_in_line.line,
+				this.fixture.circle_in_line.circ,
+				this.fixture.circle_in_line.line,
 			)
 		);
 		this.assertTrue(
 			collisionCircLine(
-				fixture.circ_line.circle_in_line.circ,
-				fixture.circ_line.circle_in_line.rLine,
+				this.fixture.circle_in_line.circ,
+				this.fixture.circle_in_line.rLine,
 			)
 		);
 	}
@@ -56,14 +57,14 @@ export class CircLineCollisions extends Tests {
 	test_end_collision() {
 		this.assertTrue(
 			collisionCircLine(
-				fixture.circ_line.end_collision.circ,
-				fixture.circ_line.end_collision.line,
+				this.fixture.end_collision.circ,
+				this.fixture.end_collision.line,
 			)
 		);
 		this.assertTrue(
 			collisionCircLine(
-				fixture.circ_line.end_collision.circ,
-				fixture.circ_line.end_collision.rLine,
+				this.fixture.end_collision.circ,
+				this.fixture.end_collision.rLine,
 			)
 		);
 	}
@@ -71,14 +72,14 @@ export class CircLineCollisions extends Tests {
 	test_boundary_case() {
 		this.assertTrue(
 			collisionCircLine(
-				fixture.circ_line.boundary_case.circ,
-				fixture.circ_line.boundary_case.line,
+				this.fixture.boundary_case.circ,
+				this.fixture.boundary_case.line,
 			)
 		);
 		this.assertTrue(
 			collisionCircLine(
-				fixture.circ_line.boundary_case.circ,
-				fixture.circ_line.boundary_case.rLine,
+				this.fixture.boundary_case.circ,
+				this.fixture.boundary_case.rLine,
 			)
 		);
 	}
@@ -86,14 +87,14 @@ export class CircLineCollisions extends Tests {
 	test_boundary_case_line_ends() {
 		this.assertTrue(
 			collisionCircLine(
-				fixture.circ_line.boundary_case_line_ends.circ,
-				fixture.circ_line.boundary_case_line_ends.line,
+				this.fixture.boundary_case_line_ends.circ,
+				this.fixture.boundary_case_line_ends.line,
 			)
 		);
 		this.assertTrue(
 			collisionCircLine(
-				fixture.circ_line.boundary_case_line_ends.circ,
-				fixture.circ_line.boundary_case_line_ends.rLine,
+				this.fixture.boundary_case_line_ends.circ,
+				this.fixture.boundary_case_line_ends.rLine,
 			)
 		);
 	}
@@ -101,26 +102,26 @@ export class CircLineCollisions extends Tests {
 	test_no_collision() {
 		this.assertFalse(
 			collisionCircLine(
-				fixture.circ_line.no_intersection.circ_1,
-				fixture.circ_line.no_intersection.line_1,
+				this.fixture.no_intersection.circ_1,
+				this.fixture.no_intersection.line_1,
 			)
 		);
 		this.assertFalse(
 			collisionCircLine(
-				fixture.circ_line.no_intersection.circ_1,
-				fixture.circ_line.no_intersection.rLine_1,
+				this.fixture.no_intersection.circ_1,
+				this.fixture.no_intersection.rLine_1,
 			)
 		);
 		this.assertFalse(
 			collisionCircLine(
-				fixture.circ_line.no_intersection.circ_2,
-				fixture.circ_line.no_intersection.line_2,
+				this.fixture.no_intersection.circ_2,
+				this.fixture.no_intersection.line_2,
 			)
 		);
 		this.assertFalse(
 			collisionCircLine(
-				fixture.circ_line.no_intersection.circ_2,
-				fixture.circ_line.no_intersection.rLine_2,
+				this.fixture.no_intersection.circ_2,
+				this.fixture.no_intersection.rLine_2,
 			)
 		);
 	}
