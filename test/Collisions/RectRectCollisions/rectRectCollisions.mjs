@@ -37,15 +37,9 @@ export class RectRectCollisions extends Tests {
 	}
 
 	test_fully_inside() {
-		// this._all_rects_collide(
-		// 	this.fixture.fully_inside
-		// );
-		this.assertTrue(
-			collisionRectRect(
-				this.fixture.fully_inside.rect2,
-				this.fixture.fully_inside.rect1,
-			)
-		)
+		this._all_rects_collide(
+			this.fixture.fully_inside
+		);
 	}
 
 	test_boundary_case() {
@@ -70,6 +64,9 @@ export class RectRectCollisions extends Tests {
 				this.assertTrue(
 					collisionRectRect(r1, r2)
 				);
+				this.assertTrue(
+					collisionRectRect(r2, r1)
+				);
 			}
 		}
 	}
@@ -78,27 +75,31 @@ export class RectRectCollisions extends Tests {
 		var rects = {
 			rect1: [
 				this.fixture.no_collision.rect1,
-				// this.fixture.no_collision.rRect1,
+				this.fixture.no_collision.rRect1,
 			],
-			// rect2: [
-			// 	this.fixture.no_collision.rect2,
-			// 	this.fixture.no_collision.rRect2,
-			// ],
+			rect2: [
+				this.fixture.no_collision.rect2,
+				this.fixture.no_collision.rRect2,
+			],
 			rect3: [
 				this.fixture.no_collision.rect3,
-				// this.fixture.no_collision.rRect3,
+				this.fixture.no_collision.rRect3,
 			],
-			// rect4: [
-			// 	this.fixture.no_collision.rect4,
-			// 	this.fixture.no_collision.rRect4,
-			// ],
-			// rect5: [
-			// 	this.fixture.no_collision.rect5,
-			// 	this.fixture.no_collision.rRect5,
-			// ],
+			rect4: [
+				this.fixture.no_collision.rect4,
+				this.fixture.no_collision.rRect4,
+			],
+			rect5: [
+				this.fixture.no_collision.rect5,
+				this.fixture.no_collision.rRect5,
+			],
+			rect6: [
+				this.fixture.no_collision.rect6,
+				this.fixture.no_collision.rRect6,
+			],
 		}
-		//compare each element of one array with each element
-		//from the other arrays
+		// compare each element of one array with each element
+		// from the other arrays
 		for (var rect1 in rects) {
 			for (var rect2 in rects) {
 				if (rect2 != rect1) {

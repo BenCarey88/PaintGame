@@ -7,12 +7,12 @@ import {Shape} from './shape.mjs';
 export class Line extends Shape {
 
     //construct line from two position vectors
-    constructor(pos1, pos2, orientation) {
+    constructor(pos1, pos2, width=20, orientation) {
         super({pos1:pos1, pos2:pos2});
         this.update();
 
+        this.width = width;
         this._orientation = orientation;
-        this.width = 20;
     }
 
     //get x and y coordinates from the two pos vectors
@@ -37,7 +37,7 @@ export class Line extends Shape {
 
     clone(points, orientation) {
         return new Line(
-            points.pos1, points.pos2, orientation
+            points.pos1, points.pos2, this.width, orientation
         );
     }
 

@@ -20,6 +20,16 @@ export class Base {
         return utils.greaterOrEq(x,y);
     }
 
+    //convert a float to a 1dp/0dp decimal
+    stringify(float) {
+        if(float.toString().includes(".")) {
+            return float.toFixed(1);
+        }
+        else {
+            return float.toString();
+        }
+    }
+
     //return string representation of class (normally should be overridden)
     string() {
         return `${this.constructor.name} instance`;

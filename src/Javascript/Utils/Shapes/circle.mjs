@@ -46,7 +46,7 @@ export class Circle extends Shape {
 
     //string representation
     string() {
-        return `Circle[${this.centre.string()}, rad ${this.rad}]`;
+        return `Circle[${this.centre.string()}, rad ${this.stringify(this.rad)}]`;
     }
 
 }

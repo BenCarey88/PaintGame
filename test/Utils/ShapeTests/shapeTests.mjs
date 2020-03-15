@@ -72,6 +72,7 @@ export class ShapeTests extends Tests {
 		this.assertEq(l1.centre(), new Vector(1.5, 3));
 		this.assertEq(l1.length(), Math.sqrt(5));
 		this.assertEq(l1.elevation(), Math.atan(2));
+		this.assertEq(l1.orientation(), Math.atan(2));
 	}
 
 	test_rect_translate() {
@@ -106,6 +107,15 @@ export class ShapeTests extends Tests {
 			-diag, -diag, diag, diag
 		);
 		this.assertEq(r1.bbox(), bbox);
+	}
+
+	test_rect_attributes() {
+		var r1 = new Rect(
+			new Vector(0, 0), 5, 5, 4
+		);
+		this.assertEq(r1.orientation(), 4);
+		var r2 = r1.rotate(3);
+		this.assertEq(r2.orientation(), 7);
 	}
 
 }

@@ -183,30 +183,36 @@ rect_rect.no_collision = {
     rRect1: new Rect(
         new Vector(80, 90), 50, 100,  4 * Math.PI/3
     ),
-    // rect2: new Rect(
-    //     new Vector(100, 200), 60, 60, -Math.PI/6
-    // ),
-    // rRect2: new Rect(
-    //     new Vector(100, 200), 60, 60, -7*Math.PI/6
-    // ),
+    rect2: new Rect(
+        new Vector(100, 200), 60, 60, -Math.PI/6
+    ),
+    rRect2: new Rect(
+        new Vector(100, 200), 60, 60, -7*Math.PI/6
+    ),
     rect3: new Rect(
         new Vector(160, 150), 60, 60, 10
     ),
     rRect3: new Rect(
         new Vector(160, 150), 60, 60, 10 - Math.PI
     ),
-    // rect4: new Rect(
-    //     new Vector(180, 70), 30, 60, 10
-    // ),
-    // rRect4: new Rect(
-    //     new Vector(180, 70), 30, 60, 10 - Math.PI
-    // ),
-    // rect5: new Rect(
-    //     new Vector(170, 220), 40, 30, 0
-    // ),
-    // rRect5: new Rect(
-    //     new Vector(170, 220), 40, 30, Math.PI
-    // ),
+    rect4: new Rect(
+        new Vector(180, 70), 30, 60, 10
+    ),
+    rRect4: new Rect(
+        new Vector(180, 70), 30, 60, 10 - Math.PI
+    ),
+    rect5: new Rect(
+        new Vector(170, 220), 40, 30, 0
+    ),
+    rRect5: new Rect(
+        new Vector(170, 220), 40, 30, Math.PI
+    ),
+    rect6: new Rect(
+        new Vector(100, 136.5), 60, 10, 9 * Math.PI/15
+    ),
+    rRect6: new Rect(
+        new Vector(100, 136.5), 60, 10, -6 * Math.PI/15
+    ),
 
     FIXTURE_LENGTH: 180,
     FIXTURE_TRANSFORM: new Vector(0, -20),

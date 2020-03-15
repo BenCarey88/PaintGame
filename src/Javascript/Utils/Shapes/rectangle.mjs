@@ -77,8 +77,12 @@ export class Rect extends Shape {
     //string representation
     string() {
         return (
-            `Rectangle[${this.v1.string()}, ${this.v2.string()},
-            ${this.v3.string()}, ${this.v4.string()}]`
+            `Rectangle[Centre ${this.centre.string()},
+            Width ${this.stringify(this.width)},
+            Height ${this.stringify(this.height)},
+            Orientation ${this.stringify(this.orientation())}]`
+            //${this.v1.string()}, ${this.v2.string()},
+            //${this.v3.string()}, ${this.v4.string()}]`
         );
     }
 

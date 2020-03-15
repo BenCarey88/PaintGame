@@ -139,7 +139,12 @@ export class Matrix extends Base {
 
     //string representation
     string() {
-        return `|${this.a}, ${this.b}| <br/> |${this.c}, ${this.d}|`;
+        return (
+            `|${this.stringify(this.a)},
+            ${this.stringify(this.b)}| <br/>
+            |${this.stringify(this.c)},
+            ${this.stringify(this.d)}|`
+        );
     }
 
 }
