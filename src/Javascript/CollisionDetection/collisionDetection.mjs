@@ -131,13 +131,32 @@ export function collisionRectRect(rect1, rect2) {
         new Line(rect2.v4, rect2.v1),
     ]
     var pointsRect1 = [
-        rect1.v1, rect1.v2, rect1.v3, rect.v4
+        rect1.v1, rect1.v2, rect1.v3, rect1.v4
     ]
+    var results = [];
     for (var line of linesRect2) {
+
+        //OK, problem: In initial plan, you need to bbox compare first,
+        //because if a line bbox intersects with a horizontal rectangle,
+        //then that line must intersect that rectangle if and only if 2 
+        //corners of that rectangle are on different sides of (the infinite
+        //extended version of) that line OR 1 corner touches (the infinite 
+        //extended version of) that line [I THINK].
+        //BUT: I also commented that bbox compare out because I needed a way
+        //to catch the case of rect1 fully inside rect2, ie. no lines from rect1
+        //intersect rect2, yet the rectangle as a whole is inside rect2, which
+        //I did by checking if opposite sides of rect1 are on opposite sides of
+        //all points in rect2, ie. have to check all sides of rect1
+        //maybe instead can just do extra compare at end of all lines from rect2
+        //against centre of rect1
+
+        //NOTE: leave some of the stuff from the above comment in final version
+        //so future me understands what logic is being used here
+
         //first bboxcompare the line and the rectangle
-        if (!line.bboxCompare(rect1)) {
-            continue;
-        }
+        // if (!line.bboxCompare(rect1)) {
+        //     continue;
+        // }
         //get line in form y=mx+c
         var m = (line.y2 - line.y1)/(line.x2 - line.x1);
         var c = line.y1 - m*line.x1;
@@ -153,29 +172,41 @@ export function collisionRectRect(rect1, rect2) {
                 return true;
             }
         }
+        results.push(result);
 
         //if all points on same side of line, check in case one touches
+        //BETTER: do this above so result is one of (true, false or "EQUAL")
         if (result) {
             //top left corner
             if (m>0  && utils.floatEq(rect1.v1.y, m * rect1.v1.x + c)) {
+                print("top left")
                 return true;
             }
             //top right corner
             if (m<0 && utils.floatEq(rect1.v2.y, m * rect1.v2.x + c)) {
+                print("top right")
                 return  true;
             }
         }
         else {
             //bottom right corner
             if (m>0 && utils.floatEq(rect1.v3.y, m * rect1.v3.x + c)) {
+                print("bottom right")
                 return true;
             }
             //bottom left corner
             if (m<0 && utils.floatEq(rect1.v4.y, m * rect1.v4.x + c)) {
+                print("bottom left")
                 return true;
             }
         }
     }
+    //if each side of rect2 is on opposite side of rect1 to
+    //its opposing side in rect2, collision
+    if (results[0] != results[2] && results[1] != results[3]){
+        return true;
+    }
+
     return false;
 
 }
