@@ -11,6 +11,11 @@ export function collisionCircCirc(circ1, circ2) {
 
 //check if circle intersects line
 export function collisionCircLine(circle, line) {
+    
+    if(!circle.bboxCompare(line)) {
+        return false;
+    }
+
     var angle = line.orientation();
     line = line.rotate(-angle);
     circle = circle.rotate(-angle);
@@ -48,6 +53,11 @@ export function collisionCircLine(circle, line) {
 
 //check if circle intersects rect
 export function collisionCircRect(circle, rect) {
+
+    if(!circle.bboxCompare(rect)) {
+        return false;
+    }
+
     var angle = rect.orientation();
     rect = rect.rotate(-angle);
     circle = circle.rotate(-angle);
@@ -114,10 +124,10 @@ export function collisionRectRect(rect1, rect2) {
     /*
     BASIC IDEA:
 
-    FIRST: rotate rectangle around so rect1 is horizontal. If rect2 is also
-    horizontal then we can bbox compare and done. OTHERWISE:
+    1) FIRST: rotate rectangle around so rect1 is horizontal. If rect2 is also
+    horizontal/vertical then we can bbox compare and done. OTHERWISE:
 
-    IF: a line bbox intersects with a horizontal rectangle,
+    2) IF: a line bbox intersects with a horizontal rectangle,
     THEN: that line will intersect that rectangle
     IFF 2 corners of that rectangle are on different sides of (the infinite 
         extended version of) that line 
@@ -125,9 +135,9 @@ export function collisionRectRect(rect1, rect2) {
 
     NOTE: We can use y=mx+c to describe the line without worry because the
         only weird cases would be if rectangle is horizontal/vertical (so 2 sides
-        would have m infinite), but we removed these cases in the FIRST section.
+        would have m infinite), but we removed these cases in the section 1.
 
-    AFTER: need to catch the case of rect1 fully inside rect2, ie. no lines 
+    3) AFTER: need to catch the case of rect1 fully inside rect2, ie. no lines 
         from rect2 intersect rect1, yet the rectangle as a whole is inside rect1.
         This is done by checking if opposite sides of rect2 are on opposite sides
         of (the centre of) rect1. 
@@ -135,11 +145,15 @@ export function collisionRectRect(rect1, rect2) {
         because the infinite extended lines from rect2 will intersect edges of rect1.
     */
 
+    if(!rect1.bboxCompare(rect2)) {
+        return false;
+    }
     var angle = rect1.orientation();
     rect1 = rect1.rotate(-angle);
     rect2 = rect2.rotate(-angle);
 
-    //if rect2 is also horizontal, just bbox compare
+    //(1) 
+    //if rect2 is also horizontal/vertical, just bbox compare
     var rect2Horizontal = utils.floatEq(
         rect2.orientation()/(Math.PI * 0.5) % 1.0,
         0
@@ -148,6 +162,7 @@ export function collisionRectRect(rect1, rect2) {
         return rect2.bboxCompare(rect1);
     }
 
+    //(2)
     //define sides of rect as lines with width 0
     var linesRect2 = [
         new Line(rect2.v1, rect2.v2, 0),
@@ -158,14 +173,18 @@ export function collisionRectRect(rect1, rect2) {
     var pointsRect1 = [
         rect1.v1, rect1.v2, rect1.v3, rect1.v4
     ]
+    var centre = rect1.centre;
+    var centreComparisons = [];
     for (var line of linesRect2) {
-        //first bboxcompare the line and the rectangle
+        //get line in form y=mx+c
+        //have to do this bit first to prepare for section 3
+        var m = (line.y2 - line.y1)/(line.x2 - line.x1);
+        var c = line.y1 - m*line.x1;
+        centreComparisons.push(centre.y < m*centre.x+c);
+        //now bboxcompare the line and the rectangle
         if (!line.bboxCompare(rect1)) {
             continue;
         }
-        //get line in form y=mx+c
-        var m = (line.y2 - line.y1)/(line.x2 - line.x1);
-        var c = line.y1 - m*line.x1;
         var result = undefined;
         for (var point of pointsRect1) {
             //check point for y=mx+c
@@ -184,20 +203,53 @@ export function collisionRectRect(rect1, rect2) {
         }
     }
 
+    //(3)
     //if each side of rect2 is on opposite side of rect1's centre
-    //to the opposing side in rect2, collision occurs
-    var results = [];
-    for (var line of linesRect2) {
-        var m = (line.y2 - line.y1)/(line.x2 - line.x1);
-        var c = line.y1 - m*line.x1;
-        var centre = rect1.centre;
-        results.push(centre.y < m*centre.x+c);
-    }
-    if (results[0] != results[2] && results[1] != results[3]){
+    //to the opposing side in rect2, rect1 is inside rect2
+    if (centreComparisons[0] != centreComparisons[2] && 
+            centreComparisons[1] != centreComparisons[3]){
         return true;
     }
 
-    //if none of above, there was no collision
+    //if none of above, there is no collision
     return false;
 
+}
+
+//check if rect intersects line
+export function collisionRectLine(rect, line) {
+    var lineCirc1 = new Circle(line.pos1, line.width/2);
+    var lineCirc2 = new Circle(line.pos2, line.width/2);
+    var lineRect = new Rectangle(
+        line.centre(), line.length(), line.width, line.orientation()
+    )
+    if (collisionCircRect(lineCirc1, rect)) {
+        return true;
+    }
+    if (collisionCircRect(lineCirc2, rect)) {
+        return true;
+    }
+    if (collisionRectRect(lineRect, rect)) {
+        return true;
+    }
+    return false;
+}
+
+//check if line intersects line
+export function collisionLineLine(line1, line2) {
+    var line1Circ1 = new Circle(line1.pos1, line1.width/2);
+    var line1Circ2 = new Circle(line1.pos2, line1.width/2);
+    var line1Rect = new Rectangle(
+        line1.centre(), line1.length(), line1.width, line1.orientation()
+    )
+    if (collisionCircLine(line1Circ1, line2)) {
+        return true;
+    }
+    if (collisionCircLine(line1Circ2, line2)) {
+        return true;
+    }
+    if (collisionRectLine(line1Rect, line2)) {
+        return true;
+    }
+    return false;
 }

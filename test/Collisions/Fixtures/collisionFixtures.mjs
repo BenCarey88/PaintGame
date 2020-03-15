@@ -13,5 +13,7 @@ export var fixture = new Fixture(
         circ_line: circ_line,
         circ_rect: circ_rect,
         rect_rect: rect_rect,
+        rect_line: rect_line,
+        line_line: line_line,
     }
 );
