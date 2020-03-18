@@ -220,7 +220,7 @@ export function collisionRectRect(rect1, rect2) {
 export function collisionRectLine(rect, line) {
     var lineCirc1 = new Circle(line.pos1, line.width/2);
     var lineCirc2 = new Circle(line.pos2, line.width/2);
-    var lineRect = new Rectangle(
+    var lineRect = new Rect(
         line.centre(), line.length(), line.width, line.orientation()
     )
     if (collisionCircRect(lineCirc1, rect)) {
@@ -239,7 +239,7 @@ export function collisionRectLine(rect, line) {
 export function collisionLineLine(line1, line2) {
     var line1Circ1 = new Circle(line1.pos1, line1.width/2);
     var line1Circ2 = new Circle(line1.pos2, line1.width/2);
-    var line1Rect = new Rectangle(
+    var line1Rect = new Rect(
         line1.centre(), line1.length(), line1.width, line1.orientation()
     )
     if (collisionCircLine(line1Circ1, line2)) {

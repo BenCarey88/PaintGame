@@ -96,7 +96,7 @@ export class Vector extends Base {
 
     //string representation
     string() {
-        return `(${this.stringify(this.x)}, ${this.stringify(this.y)})`;
+        return `(${this.x}, ${this.y})`;
     }
 
 }

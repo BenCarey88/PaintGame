@@ -4,7 +4,7 @@ import {Vector, Rect} from '../../exports.mjs';
 //RECT-RECT COLLISIONS
 //---------------------------------------
 export var rect_rect = {
-    FIXTURE_HEIGHT: 180
+    FIXTURE_HEIGHT: 170
 };
 
 rect_rect.collision = {
@@ -172,7 +172,7 @@ rect_rect.boundary_case = {
     ),
 
     FIXTURE_LENGTH: 200,
-    FIXTURE_SCALE: 1.1,
+    FIXTURE_SCALE: 1.05,
     FIXTURE_TRANSFORM: new Vector(0, -5),
 }
 
@@ -216,5 +216,5 @@ rect_rect.no_collision = {
 
     FIXTURE_LENGTH: 180,
     FIXTURE_TRANSFORM: new Vector(0, -20),
-    FIXTURE_SCALE: 0.8,
+    FIXTURE_SCALE: 0.75,
 };

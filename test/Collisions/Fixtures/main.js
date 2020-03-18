@@ -6,6 +6,7 @@ import {printColour, newLine, addLink} from '../../exports.mjs';
 var canvas = document.getElementById("myCanvas");
 var ctx = canvas.getContext("2d");
 
+ctx.scale(0.76, 0.76);
 fixture.draw(ctx, true);
 
 newLine();
