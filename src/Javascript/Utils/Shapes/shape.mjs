@@ -2,6 +2,7 @@
 
 import {print} from '../print.mjs';
 import {Base} from '../base.mjs';
+import {constants} from '../constants.mjs';
 import {Rotation} from '../Maths/index.mjs';
 
 export class Shape extends Base {
@@ -18,18 +19,18 @@ export class Shape extends Base {
             this[key] = properties[key];
         }
 
+        this.name = constants.BASE_SHAPE;
+
         this._bbox = undefined;
         this._orientation = undefined;
-        this._centre = undefined;
     }
 
-    //reset properties after rotation / translation
-    reset() {
+    //update properties after rotation / translation
+    update() {
         for (var key in this.points) {
             this[key] = this.points[key];
         }
         this._bbox = undefined;
-        this._centre = undefined;
     }
 
     //compare if this == other shape
@@ -67,6 +68,11 @@ export class Shape extends Base {
         //placeholder: needs to be overridden in inherited classes
     }
 
+    //return cetnre of this
+    centre() {
+        //placeholder: needs to be overridden in inherited classes
+    }
+
     //return this translated by vec
     translate(vec) {
         var points = {};
@@ -81,7 +87,7 @@ export class Shape extends Base {
         for (var key in this.points) {
             this.points[key].plusEq(vec);
         }
-        this.reset();
+        this.update();
     }
 
     //return this rotated by angle about pivot (default: (0,0))
@@ -119,7 +125,7 @@ export class Shape extends Base {
                 ).plus(pivot)
             }
         }
-        this.reset();
+        this.update();
     }
 
     //draw the shape to the context

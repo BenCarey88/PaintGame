@@ -1,6 +1,6 @@
 import {Tests} from '../../tests.mjs';
 import {fixture} from '../Fixtures/index.mjs';
-import {collisionCircCirc} from '../../exports.mjs';
+import {collision} from '../../exports.mjs';
 
 export class CircCircCollisions extends Tests {
 	constructor() {
@@ -10,7 +10,7 @@ export class CircCircCollisions extends Tests {
 
 	test_collision() {
 		this.assertTrue(
-			collisionCircCirc(
+			collision(
 				this.fixture.collision.circ_1,
 				this.fixture.collision.circ_2,
 			)
@@ -19,7 +19,7 @@ export class CircCircCollisions extends Tests {
 
 	test_full_overlap() {
 		this.assertTrue(
-			collisionCircCirc(
+			collision(
 				this.fixture.full_overlap.circ_1,
 				this.fixture.full_overlap.circ_2,
 			)
@@ -28,7 +28,7 @@ export class CircCircCollisions extends Tests {
 
 	test_fully_inside() {
 		this.assertTrue(
-			collisionCircCirc(
+			collision(
 				this.fixture.fully_inside.circ_1,
 				this.fixture.fully_inside.circ_2,
 			)
@@ -37,13 +37,13 @@ export class CircCircCollisions extends Tests {
 
 	test_boundary_case() {
 		this.assertTrue(
-			collisionCircCirc(
+			collision(
 				this.fixture.boundary_case.circ_1,
 				this.fixture.boundary_case.circ_2,
 			)
 		);
 		this.assertTrue(
-			collisionCircCirc(
+			collision(
 				this.fixture.boundary_case.circ_3,
 				this.fixture.boundary_case.circ_4,
 			)
@@ -52,13 +52,13 @@ export class CircCircCollisions extends Tests {
 
 	test_no_intersection() {
 		this.assertFalse(
-			collisionCircCirc(
+			collision(
 				this.fixture.no_intersection.circ_1,
 				this.fixture.no_intersection.circ_2,
 			)
 		);
 		this.assertFalse(
-			collisionCircCirc(
+			collision(
 				this.fixture.no_intersection.circ_3,
 				this.fixture.no_intersection.circ_4,
 			)

@@ -1,6 +1,6 @@
 import {Tests} from '../../tests.mjs';
 import {fixture} from '../Fixtures/index.mjs';
-import {collisionRectLine, newLine, print} from '../../exports.mjs';
+import {collision, newLine, print} from '../../exports.mjs';
 
 export class RectLineCollisions extends Tests {
 	constructor() {
@@ -34,7 +34,7 @@ export class RectLineCollisions extends Tests {
 		for (var rect of rects) {
 			for (var line of lines) {
 				this.assertTrue(
-					collisionRectLine(rect, line)
+					collision(rect, line)
 				);
 			}
 		}
@@ -60,7 +60,7 @@ export class RectLineCollisions extends Tests {
 		for (var rect of rects) {
 			for (var line of lines) {
 				this.assertTrue(
-					collisionRectLine(rect, line)
+					collision(rect, line)
 				);
 			}
 		}
@@ -86,7 +86,7 @@ export class RectLineCollisions extends Tests {
 		for (var rect of rects) {
 			for (var line of lines) {
 				this.assertTrue(
-					collisionRectLine(rect, line)
+					collision(rect, line)
 				);
 			}
 		}
@@ -104,7 +104,7 @@ export class RectLineCollisions extends Tests {
 		for (var rect of rect1) {
 			for (var line of line1) {
 				this.assertTrue(
-					collisionRectLine(rect, line)
+					collision(rect, line)
 				);
 			}
 		}
@@ -120,7 +120,7 @@ export class RectLineCollisions extends Tests {
 		for (var rect of rect2) {
 			for (var line of line2) {
 				this.assertTrue(
-					collisionRectLine(rect, line)
+					collision(rect, line)
 				);
 			}
 		}
@@ -146,7 +146,7 @@ export class RectLineCollisions extends Tests {
 		for (var rect of rects) {
 			for (var line of lines) {
 				this.assertFalse(
-					collisionRectLine(rect, line)
+					collision(rect, line)
 				);
 			}
 		}

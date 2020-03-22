@@ -1,6 +1,6 @@
 import {Tests} from '../../tests.mjs';
 import {fixture} from '../Fixtures/index.mjs';
-import {collisionLineLine, newLine, print} from '../../exports.mjs';
+import {collision, newLine, print} from '../../exports.mjs';
 
 export class LineLineCollisions extends Tests {
 	constructor() {
@@ -12,7 +12,7 @@ export class LineLineCollisions extends Tests {
 		for (var l1 in fixture) {
 			for (var l2 in fixture) {
 				this.assertTrue(
-					collisionLineLine(fixture[l1], fixture[l2])
+					collision(fixture[l1], fixture[l2])
 				);
 			}
 		}
@@ -48,10 +48,10 @@ export class LineLineCollisions extends Tests {
 		for (var l1 of line1) {
 			for (var l2 of lines) {
 				this.assertTrue(
-					collisionLineLine(l1, l2)
+					collision(l1, l2)
 				);
 				this.assertTrue(
-					collisionLineLine(l2, l1)
+					collision(l2, l1)
 				);
 			}
 		}
@@ -93,7 +93,7 @@ export class LineLineCollisions extends Tests {
 					var lineList2 = lines[line2];
 					for (var l1 of lineList1) {
 						for (var l2 of lineList2) {
-							this.assertFalse(collisionLineLine(l1, l2));
+							this.assertFalse(collision(l1, l2));
 						}
 					}
 				}

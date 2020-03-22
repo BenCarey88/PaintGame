@@ -1,10 +1,10 @@
 import {print, newLine} from '../Utils/print.mjs';
-import {utils, Line, Circle, Rect, BBox} from '../Utils/index.mjs';
+import {utils, Line, Circle, Rect, BBox, constants} from '../Utils/index.mjs';
 
 //check if circ1 intersects circ2
 export function collisionCircCirc(circ1, circ2) {
     return utils.lessOrEq(
-        (circ1.centre.minus(circ2.centre)).magnitude(),
+        (circ1.centre().minus(circ2.centre())).magnitude(),
         circ1.rad + circ2.rad
     );
 }
@@ -19,7 +19,7 @@ export function collisionCircLine(circle, line) {
     var angle = line.orientation();
     line = line.rotate(-angle);
     circle = circle.rotate(-angle);
-    var centre = circle.centre;
+    var centre = circle.centre();
 
     //line left
     if (centre.x < line.x1) {
@@ -61,7 +61,7 @@ export function collisionCircRect(circle, rect) {
     var angle = rect.orientation();
     rect = rect.rotate(-angle);
     circle = circle.rotate(-angle);
-    var centre = circle.centre;
+    var centre = circle.centre();
 
     var xmin = rect.v1.x;
     var ymin = rect.v1.y;
@@ -141,7 +141,7 @@ export function collisionRectRect(rect1, rect2) {
         from rect2 intersect rect1, yet the rectangle as a whole is inside rect1.
         This is done by checking if opposite sides of rect2 are on opposite sides
         of (the centre of) rect1. 
-    (NOTE that if rect2 is fully inside rect1 this will be captured by the above,
+    (NOTE that if rect2 is fully inside rect1 this will be captured by section 2,
         because the infinite extended lines from rect2 will intersect edges of rect1.
     */
 
@@ -173,7 +173,7 @@ export function collisionRectRect(rect1, rect2) {
     var pointsRect1 = [
         rect1.v1, rect1.v2, rect1.v3, rect1.v4
     ]
-    var centre = rect1.centre;
+    var centre = rect1.centre();
     var centreComparisons = [];
     for (var line of linesRect2) {
         //get line in form y=mx+c
@@ -252,4 +252,48 @@ export function collisionLineLine(line1, line2) {
         return true;
     }
     return false;
+}
+
+//------------------------------------------------------------
+//combined collision function
+//------------------------------------------------------------
+
+//check if shape1 intersects shape2
+export function collision(shape1, shape2) {
+    switch ([shape1.name, shape2.name].join("")) {
+
+        case [constants.CIRCLE, constants.CIRCLE].join(""):
+            return collisionCircCirc(shape1, shape2);
+            break;
+
+        case [constants.CIRCLE, constants.RECTANGLE].join(""):
+        case [constants.RECTANGLE, constants.CIRCLE].join(""):
+            return collisionCircRect(shape1, shape2);
+            break;
+
+        case [constants.CIRCLE, constants.LINE].join(""):
+        case [constants.LINE, constants.CIRCLE].join(""):
+            return collisionCircLine(shape1, shape2);
+            break;
+
+        case [constants.RECTANGLE, constants.RECTANGLE].join(""):
+            return collisionRectRect(shape1, shape2);
+            break;
+
+        case [constants.RECTANGLE, constants.LINE].join(""):
+        case [constants.LINE, constants.RECTANGLE].join(""):
+            return collisionRectLine(shape1, shape2);
+            break;
+
+        case [constants.LINE, constants.LINE].join(""):
+            return collisionLineLine(shape1, shape2);
+            break;
+
+        default:
+            throw new Error(
+                `collision not implemented for shapes 
+                of type [${shape1.name}, ${shape2.name}]`
+            )
+            break;
+    }
 }

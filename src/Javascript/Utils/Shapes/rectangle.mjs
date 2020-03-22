@@ -1,5 +1,6 @@
 //Rectangle shape class
 
+import {constants} from '../constants.mjs';
 import {Vector} from '../Maths/vector.mjs';
 import {Rotation} from '../Maths/rotation.mjs';
 import {BBox} from './bbox.mjs';
@@ -21,8 +22,10 @@ export class Rect extends Shape {
                 vertices[key] = rot.vMult(vertices[key]).plus(centre);
             }
         }
-        vertices.centre = centre;
+        vertices._centre = centre;
         super(vertices);
+
+        this.name = constants.RECTANGLE;
 
         this.width = width;
         this.height = height;
@@ -45,9 +48,14 @@ export class Rect extends Shape {
     //clone this from new points, passing in vertices for speed
     clone(points, orientation) {
         return new Rect(
-            points.centre, this.width, this.height, orientation,
+            points._centre, this.width, this.height, orientation,
             {v1: points.v1, v2: points.v2, v3: points.v3, v4: points.v4}
         );
+    }
+
+    //return centre of rectangle
+    centre() {
+        return this._centre;
     }
 
     //return orientation of this. It is assumed that orientation 0
@@ -65,7 +73,7 @@ export class Rect extends Shape {
     draw(ctx) {
         ctx.fillStyle = "red";
 		ctx.save();
-		ctx.translate(this.centre.x, this.centre.y);
+		ctx.translate(this.centre().x, this.centre().y);
 		ctx.rotate(this.orientation());
         ctx.fillRect(
             -this.width * 0.5, -this.height * 0.5, 
@@ -77,7 +85,7 @@ export class Rect extends Shape {
     //string representation
     string() {
         return (
-            `Rectangle[Centre ${this.centre.string()},
+            `Rectangle[Centre ${this.centre().string()},
             Width ${this.stringify(this.width)},
             Height ${this.stringify(this.height)},
             Orientation ${this.stringify(this.orientation())}]`

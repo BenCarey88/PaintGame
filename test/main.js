@@ -17,11 +17,14 @@ printColour("Utils", "orange")
     import {MatrixTests} from './Utils/MatrixTests/matrixTests.mjs';
 	runTests(MatrixTests, './Utils/MatrixTests/matrixTests.html');
 
+    import {QuadraticTests} from './Utils/QuadraticTests/quadraticTests.mjs';
+	runTests(QuadraticTests, './Utils/QuadraticTests/quadraticTests.html');
+
 	import {ShapeTests} from './Utils/ShapeTests/shapeTests.mjs';
 	runTests(ShapeTests, './Utils/ShapeTests/shapeTests.html');
 
-    import {QuadraticTests} from './Utils/QuadraticTests/quadraticTests.mjs';
-	runTests(QuadraticTests, './Utils/QuadraticTests/quadraticTests.html');
+	import {CompoundShapeTests} from './Utils/CompoundShapeTests/compoundShapeTests.mjs'
+	runTests(CompoundShapeTests, './Utils/CompoundShapeTests/compoundShapeTests.html')
 
 newLine();
 printColour("Collisions", "orange")

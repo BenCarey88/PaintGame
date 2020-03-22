@@ -1,6 +1,6 @@
 import {Tests} from '../../tests.mjs';
 import {fixture} from '../Fixtures/index.mjs';
-import {collisionCircRect} from '../../exports.mjs';
+import {collision} from '../../exports.mjs';
 
 export class CircRectCollisions extends Tests {
 	constructor() {
@@ -21,7 +21,7 @@ export class CircRectCollisions extends Tests {
 		];
 		for (var rect of rects) {
 			for (var circ of circs) {
-				this.assertTrue(collisionCircRect(circ, rect));
+				this.assertTrue(collision(circ, rect));
 			}
 		}
 	}
@@ -39,7 +39,7 @@ export class CircRectCollisions extends Tests {
 		];
 		for (var rect of rects) {
 			for (var circ of circs) {
-				this.assertTrue(collisionCircRect(circ, rect));
+				this.assertTrue(collision(circ, rect));
 			}
 		}
 	}
@@ -55,7 +55,7 @@ export class CircRectCollisions extends Tests {
 		];
 		for (var rect of rects) {
 			for (var circ of circs) {
-				this.assertTrue(collisionCircRect(circ, rect));
+				this.assertTrue(collision(circ, rect));
 			}
 		}
 	}
@@ -77,7 +77,7 @@ export class CircRectCollisions extends Tests {
 		];
 		for (var rect of rects) {
 			for (var circ of circs) {
-				this.assertTrue(collisionCircRect(circ, rect));
+				this.assertTrue(collision(circ, rect));
 			}
 		}
 	}
@@ -101,7 +101,7 @@ export class CircRectCollisions extends Tests {
 		];
 		for (var rect of rects) {
 			for (var circ of circs) {
-				this.assertTrue(collisionCircRect(circ, rect));
+				this.assertTrue(collision(circ, rect));
 			}
 		}
 	}
@@ -126,7 +126,7 @@ export class CircRectCollisions extends Tests {
 		for (var rect in rects) {
 			for (var circ in circs) {
 				this.assertTrue(
-					collisionCircRect(circs[circ], rects[rect]),
+					collision(circs[circ], rects[rect]),
 					`${circ}, ${rect}`
 				);
 			}
@@ -135,25 +135,25 @@ export class CircRectCollisions extends Tests {
 
 	test_fully_inside() {
 		this.assertTrue(
-			collisionCircRect(
+			collision(
 				this.fixture.fully_inside.circ_1,
 				this.fixture.fully_inside.rect_1,
 			)
 		);
 		this.assertTrue(
-			collisionCircRect(
+			collision(
 				this.fixture.fully_inside.circ_1,
 				this.fixture.fully_inside.rRect_1,
 			)
 		);
 		this.assertTrue(
-			collisionCircRect(
+			collision(
 				this.fixture.fully_inside.circ_2,
 				this.fixture.fully_inside.rect_2,
 			)
 		);
 		this.assertTrue(
-			collisionCircRect(
+			collision(
 				this.fixture.fully_inside.circ_2,
 				this.fixture.fully_inside.rRect_2,
 			)
@@ -174,7 +174,7 @@ export class CircRectCollisions extends Tests {
 		];
 		for (var rect of rects) {
 			for (var circ of circs) {
-				this.assertFalse(collisionCircRect(circ, rect));
+				this.assertFalse(collision(circ, rect));
 			}
 		}
 	}

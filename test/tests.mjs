@@ -22,9 +22,9 @@ export class Tests extends Base {
         if (typeof x != typeof y) {
             this.passing = false;
             this.failLog.push(
-                `operands to assertEq are not of the same type: `
-                `${typeof x} and ${typeof y} `
-                `(${extraMessage})`
+                `operands to assertEq are not of the same type: 
+                ${typeof x} and ${typeof y}
+                ${extraMessage}`
             );
             return;
         }
@@ -36,7 +36,7 @@ export class Tests extends Base {
                 if (x != y) {
                     this.passing = false;
                     this.failLog.push(
-                        `expected ${x} == ${y} (${extraMessage})`
+                        `expected ${x} == ${y} ${extraMessage}`
                     );
                 }
                 break;
@@ -45,7 +45,7 @@ export class Tests extends Base {
                 if (!this.floatEq(x, y)) {
                     this.passing = false;
                     this.failLog.push(
-                        `expected ${x} == ${y} (${extraMessage})`
+                        `expected ${x} == ${y} ${extraMessage}`
                     );
                 }
                 break;
@@ -57,8 +57,8 @@ export class Tests extends Base {
                         if (!x.eq(y)) {
                             this.passing = false;
                             this.failLog.push(
-                                `expected ${x.string()} == ${y.string()}`
-                                `(${extraMessage})`
+                                `expected ${x.string()} == ${y.string()}
+                                ${extraMessage}`
                             );
                         }
                         return
@@ -66,16 +66,16 @@ export class Tests extends Base {
                 } while(constructor = Object.getPrototypeOf(constructor))
                 this.passing = false;
                 this.failLog.push(
-                    `unsupported operands to assertEq: type non-custom Object`
-                    `(${extraMessage})`
+                    `unsupported operands to assertEq: type non-custom Object
+                    ${extraMessage}`
                 );
                 break;
 
             default:
                 this.passing = false;
                 this.failLog.push(
-                    `unsupported operands to assertEq: type ${typeof x}`
-                    `(${extraMessage})`
+                    `unsupported operands to assertEq: type ${typeof x}
+                    ${extraMessage}`
                 );
                 break;
         }
@@ -86,7 +86,7 @@ export class Tests extends Base {
         if(!statement) {
             this.passing = false;
             this.failLog.push(
-                `assertTrue called on false statement (${extraMessage})`
+                `assertTrue called on false statement ${extraMessage}`
             );
         }
     }
@@ -96,7 +96,7 @@ export class Tests extends Base {
         if(statement) {
             this.passing = false;
             this.failLog.push(
-                `assertFalse called on true statement (${extraMessage})`
+                `assertFalse called on true statement ${extraMessage}`
             );
         }
     }

@@ -1,5 +1,6 @@
 //Line shape class
 
+import {constants} from '../constants.mjs';
 import {Vector} from '../Maths/index.mjs';
 import {BBox} from './bbox.mjs';
 import {Shape} from './shape.mjs';
@@ -11,16 +12,21 @@ export class Line extends Shape {
         super({pos1:pos1, pos2:pos2});
         this.update();
 
+        this.name = constants.LINE;
+
         this.width = width;
         this._orientation = orientation;
     }
 
     //get x and y coordinates from the two pos vectors
     update() {
+        super.update();
+
         this.x1 = this.pos1.x;
         this.x2 = this.pos2.x;
         this.y1 = this.pos1.y;
         this.y2 = this.pos2.y;
+        this._centre = undefined;
     }
 
     bbox() {

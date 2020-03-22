@@ -1,6 +1,6 @@
 import {Tests} from '../../tests.mjs';
 import {fixture} from '../Fixtures/index.mjs';
-import {collisionRectRect, newLine, print} from '../../exports.mjs';
+import {collision, newLine, print} from '../../exports.mjs';
 
 export class RectRectCollisions extends Tests {
 	constructor() {
@@ -12,7 +12,7 @@ export class RectRectCollisions extends Tests {
 		for (var r1 in fixture) {
 			for (var r2 in fixture) {
 				this.assertTrue(
-					collisionRectRect(fixture[r1], fixture[r2])
+					collision(fixture[r1], fixture[r2])
 				);
 			}
 		}
@@ -62,10 +62,10 @@ export class RectRectCollisions extends Tests {
 		for (var r1 of rect1) {
 			for (var r2 of rects) {
 				this.assertTrue(
-					collisionRectRect(r1, r2)
+					collision(r1, r2)
 				);
 				this.assertTrue(
-					collisionRectRect(r2, r1)
+					collision(r2, r1)
 				);
 			}
 		}
@@ -107,7 +107,7 @@ export class RectRectCollisions extends Tests {
 					var rectList2 = rects[rect2];
 					for (var r1 of rectList1) {
 						for (var r2 of rectList2) {
-							this.assertFalse(collisionRectRect(r1, r2));
+							this.assertFalse(collision(r1, r2));
 						}
 					}
 				}
