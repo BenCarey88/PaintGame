@@ -5,6 +5,7 @@ export class Tests extends Base {
     constructor() {
         super();
         this.passing = true;
+        this.errorExpected = false;
         this.failLog = [""];
         this.failList = [];
         this.errorList = [];
@@ -13,6 +14,7 @@ export class Tests extends Base {
     //reset test properties between each test
     reset() {
         this.passing = true;
+        this.errorExpected = false;
         this.failLog = [""];
     }
 
@@ -101,13 +103,23 @@ export class Tests extends Base {
         }
     }
 
+    //assert that the code in this test will throw the given error message
+    //needs to be put at the beginning of a test before the error is thrown
+    expectError(message) {
+        this.errorExpected = message;
+    }
+
     //run a given test, and print results if requested
     getResult(test, printResults) {
         this.reset();
         var messagesAndColours = [test.concat(": &nbsp &nbsp"), "white"];
         try {
             this[test]();
-            if(this.passing) {
+            if (this.errorExpected) {
+                messagesAndColours.push("[FAIL]</br>expected error but none occurred", "red");
+                this.failList.push(`\{${test}\}`);
+            }
+            else if(this.passing) {
                 messagesAndColours.push("[OK]", "lime");
             }
             else{
@@ -117,8 +129,23 @@ export class Tests extends Base {
             }
         }
         catch(err) {
-            messagesAndColours.push(`[ERROR]: ${err.message}`, "red");
-            this.errorList.push(`\{${test}\}`);
+            if(this.errorExpected) {
+                if(err.message == this.errorExpected) {
+                    messagesAndColours.push("[OK]", "lime");
+                }
+                else {
+                    messagesAndColours.push(
+                        `[ERROR]<br/>expected error [${this.errorExpected}]
+                        <br/>got error &nbsp &nbsp &nbsp &nbsp &nbsp[${err.message}]`,
+                        "red"
+                    );
+                    this.errorList.push(`\{${test}\}`);
+                }
+            }
+            else {
+                messagesAndColours.push(`[ERROR]: ${err.message}`, "red");
+                this.errorList.push(`\{${test}\}`);
+            }
         }
         if(printResults) {
             printColour(...messagesAndColours);

@@ -3,7 +3,7 @@ import {
 	print,
 	Vector, Rotation,
 	BBox, Line, Circle, Rect,
-	CompoundShape, Polygon,
+	Shape, CompoundShape, Polygon,
 	collision
 } from '../../exports.mjs';
 import {fixture} from './Fixtures/index.mjs';
@@ -14,6 +14,11 @@ export class CompoundShapeTests extends Tests {
 		this.fixture = fixture.compound_shape;
 		this.polygon_fixture = fixture.polygon;
 		this.collision_fixture = fixture.collisions;
+	}
+
+	test_empty_list_errors() {
+		this.expectError("compound shape must include at least one shape.")
+		var shape = new CompoundShape([]);
 	}
 
 	test_polygon() {
