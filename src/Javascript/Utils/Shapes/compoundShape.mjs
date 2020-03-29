@@ -41,6 +41,11 @@ export class CompoundShape extends Base {
         return true;
     }
 
+    //compare if bounding box of this overlaps bounding box of shape
+    bboxCompare(shape) {
+        return this.bbox().intersect(shape.bbox());
+    }
+
     //return bounding box
     bbox() {
         if (this._bbox == undefined) {
@@ -58,11 +63,10 @@ export class CompoundShape extends Base {
     //return centre of this
     centre() {
         if(this._centre == undefined) {
-            this._centre = new Vector(0, 0);
-            this.shapes.map(
-                shape => this._centre.plusEq(shape.centre())
-            );
-            this._centre.sMultEq(1/(this.shapes.length));
+            this._centre = this.shapes.reduce(
+                (result, value) => result.plus(value.centre()),
+                new Vector(0,0),
+            ).sMult(1/this.shapes.length);
         }
         return this._centre;
     }
@@ -71,7 +75,7 @@ export class CompoundShape extends Base {
     translate(vec) {
         var shapes = [];
         for (var shape of this.shapes) {
-            shapes.push(shape.plus(vec));
+            shapes.push(shape.translate(vec));
         }
         return new CompoundShape(shapes);
     }
@@ -79,17 +83,16 @@ export class CompoundShape extends Base {
     //translate this by vec
     translateEq(vec) {
         for (var shape of this.shapes) {
-            shape.plusEq(vec);
+            shape.translateEq(vec);
         }
         this.reset();
     }
 
     //return this rotated by angle about pivot (default: (0,0))
     rotate(angle, pivot) {
-        var rot = new Rotation(angle);
         var shapes = [];
         for (var shape of this.shapes) {
-            shapes.push(shape.rotate(rot, pivot))
+            shapes.push(shape.rotate(angle, pivot))
         }
         return new CompoundShape(shapes);
     }
@@ -98,7 +101,7 @@ export class CompoundShape extends Base {
     rotateEq(angle, pivot) {
         var rot = new Rotation(angle);
         for (var shape of this.shapes) {
-            shape.rotateEq(rot, pivot);
+            shape.rotateEq(angle, pivot);
         }
         this.reset();
     }
@@ -113,9 +116,9 @@ export class CompoundShape extends Base {
     //string representation
     string() {
         return (
-            `Compound Shape [
-                ${", ".join(this.shapes.map(shape=>shape.name))}
-            ]`
+            `Compound Shape {
+                ${(this.shapes.map(shape=>shape.string())).join(", ")}
+            }`
         );
     }
 

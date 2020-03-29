@@ -93,7 +93,10 @@ export class LineLineCollisions extends Tests {
 					var lineList2 = lines[line2];
 					for (var l1 of lineList1) {
 						for (var l2 of lineList2) {
-							this.assertFalse(collision(l1, l2));
+							this.assertFalse(
+								collision(l1, l2),
+								`- ${l1.string()}, ${l2.string()}`
+							);
 						}
 					}
 				}

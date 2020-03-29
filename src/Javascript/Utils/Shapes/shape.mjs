@@ -50,7 +50,7 @@ export class Shape extends Base {
 
     //compare if bounding box of this overlaps bounding box of shape
     bboxCompare(shape) {
-        return this.bbox().intersect(shape.bbox())
+        return this.bbox().intersect(shape.bbox());
     }
 
     //return clone of this with points in new position

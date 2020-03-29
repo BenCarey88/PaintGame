@@ -260,6 +260,24 @@ export function collisionLineLine(line1, line2) {
 
 //check if shape1 intersects shape2
 export function collision(shape1, shape2) {
+
+    if([constants.COMPOUND_SHAPE, constants.POLYGON].includes(shape1.name)) {
+        for(var shape of shape1.shapes) {
+            if (collision(shape, shape2)) {
+                return true;
+            }
+        }
+        return false;
+    }
+    if([constants.COMPOUND_SHAPE, constants.POLYGON].includes(shape2.name)) {
+        for(var shape of shape2.shapes) {
+            if (collision(shape1, shape)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     switch ([shape1.name, shape2.name].join("")) {
 
         case [constants.CIRCLE, constants.CIRCLE].join(""):
@@ -267,13 +285,17 @@ export function collision(shape1, shape2) {
             break;
 
         case [constants.CIRCLE, constants.RECTANGLE].join(""):
-        case [constants.RECTANGLE, constants.CIRCLE].join(""):
             return collisionCircRect(shape1, shape2);
+            break;
+        case [constants.RECTANGLE, constants.CIRCLE].join(""):
+            return collisionCircRect(shape2, shape1);
             break;
 
         case [constants.CIRCLE, constants.LINE].join(""):
-        case [constants.LINE, constants.CIRCLE].join(""):
             return collisionCircLine(shape1, shape2);
+            break;
+        case [constants.LINE, constants.CIRCLE].join(""):
+            return collisionCircLine(shape2, shape1);
             break;
 
         case [constants.RECTANGLE, constants.RECTANGLE].join(""):
@@ -281,8 +303,10 @@ export function collision(shape1, shape2) {
             break;
 
         case [constants.RECTANGLE, constants.LINE].join(""):
-        case [constants.LINE, constants.RECTANGLE].join(""):
             return collisionRectLine(shape1, shape2);
+            break;
+        case [constants.LINE, constants.RECTANGLE].join(""):
+            return collisionRectLine(shape2, shape1);
             break;
 
         case [constants.LINE, constants.LINE].join(""):

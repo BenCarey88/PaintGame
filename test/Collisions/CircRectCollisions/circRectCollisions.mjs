@@ -22,6 +22,7 @@ export class CircRectCollisions extends Tests {
 		for (var rect of rects) {
 			for (var circ of circs) {
 				this.assertTrue(collision(circ, rect));
+				this.assertTrue(collision(rect, circ));
 			}
 		}
 	}
@@ -40,6 +41,7 @@ export class CircRectCollisions extends Tests {
 		for (var rect of rects) {
 			for (var circ of circs) {
 				this.assertTrue(collision(circ, rect));
+				this.assertTrue(collision(rect, circ));
 			}
 		}
 	}
@@ -56,6 +58,7 @@ export class CircRectCollisions extends Tests {
 		for (var rect of rects) {
 			for (var circ of circs) {
 				this.assertTrue(collision(circ, rect));
+				this.assertTrue(collision(rect, circ));
 			}
 		}
 	}
@@ -78,6 +81,7 @@ export class CircRectCollisions extends Tests {
 		for (var rect of rects) {
 			for (var circ of circs) {
 				this.assertTrue(collision(circ, rect));
+				this.assertTrue(collision(rect, circ));
 			}
 		}
 	}
@@ -102,6 +106,7 @@ export class CircRectCollisions extends Tests {
 		for (var rect of rects) {
 			for (var circ of circs) {
 				this.assertTrue(collision(circ, rect));
+				this.assertTrue(collision(rect, circ));
 			}
 		}
 	}
@@ -175,6 +180,7 @@ export class CircRectCollisions extends Tests {
 		for (var rect of rects) {
 			for (var circ of circs) {
 				this.assertFalse(collision(circ, rect));
+				this.assertFalse(collision(rect, circ));
 			}
 		}
 	}

@@ -51,8 +51,8 @@ export class BBox extends Base {
     //string representation
     string() {
         return (
-            `BBox[(${this.xmin.toFixed(1)},${this.ymin.toFixed(1)}) 
-            to (${this.xmax.toFixed(1)},${this.ymax.toFixed(1)})]`
+            `BBox[(${this.stringify(this.xmin)},${this.stringify(this.ymin)}) 
+            to (${this.stringify(this.xmax)},${this.stringify(this.ymax)})]`
         );
     }
 

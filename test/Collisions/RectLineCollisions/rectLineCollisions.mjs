@@ -36,6 +36,9 @@ export class RectLineCollisions extends Tests {
 				this.assertTrue(
 					collision(rect, line)
 				);
+				this.assertTrue(
+					collision(line, rect)
+				);
 			}
 		}
 	}
@@ -61,6 +64,9 @@ export class RectLineCollisions extends Tests {
 			for (var line of lines) {
 				this.assertTrue(
 					collision(rect, line)
+				);
+				this.assertTrue(
+					collision(line, rect)
 				);
 			}
 		}
@@ -88,6 +94,9 @@ export class RectLineCollisions extends Tests {
 				this.assertTrue(
 					collision(rect, line)
 				);
+				this.assertTrue(
+					collision(line, rect)
+				);
 			}
 		}
 	}
@@ -106,6 +115,9 @@ export class RectLineCollisions extends Tests {
 				this.assertTrue(
 					collision(rect, line)
 				);
+				this.assertTrue(
+					collision(line, rect)
+				);
 			}
 		}
 
@@ -121,6 +133,9 @@ export class RectLineCollisions extends Tests {
 			for (var line of line2) {
 				this.assertTrue(
 					collision(rect, line)
+				);
+				this.assertTrue(
+					collision(line, rect)
 				);
 			}
 		}
@@ -147,6 +162,9 @@ export class RectLineCollisions extends Tests {
 			for (var line of lines) {
 				this.assertFalse(
 					collision(rect, line)
+				);
+				this.assertFalse(
+					collision(line, rect)
 				);
 			}
 		}
