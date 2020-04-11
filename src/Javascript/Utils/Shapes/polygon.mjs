@@ -3,48 +3,66 @@
 import {constants} from '../constants.mjs';
 import {BBox} from './bbox.mjs';
 import {Line} from './line.mjs';
-import {CompoundShape} from './compoundShape.mjs';
+import {Shape} from './shape.mjs';
 
-export class Polygon extends CompoundShape {
+export class Polygon extends Shape {
 
-    constructor(vertices, linewidth=10, shapes) {
+    constructor(vertices, linewidth=10, points) {
 
-        if (shapes == undefined) {
-            var shapes = vertices.reduce(
-                function(result, value, index, array) {
-                    result.push(
-                        new Line (
-                            array[index % array.length],
-                            array[(index + 1) % array.length],
-                            linewidth,
-                        )
-                    );
-                    return result;
-                },
-                [],
-            );
+        if(points == undefined) {
+            var points = {};
+            var count = 1;
+            for (var vertex of vertices) {
+                points[`v${count}`] = vertex;
+                count++;
+            }
         }
-        super(shapes);
-
-        this.name = constants.POLYGON;
+        super(points, {linewidth: linewidth});
 
         this.vertices = vertices;
         this.linewidth = linewidth;
+        this.shapes = this._getLines(vertices, linewidth);
+
+        this.name = constants.POLYGON;
     }
 
     //update properties after rotation / translation
     update() {
         super.update();
-        this.vertices = this.shapes.map(line => line.centre());
+        this.verticies = [];
+        for (key in this.points) {
+            this.vertices.push(this.points[key]);
+        }
+        this.shapes = this._getLines(this.verticies);
     }
 
-    //return clone of this with shapes (and hence points) in new position
-    clone(shapes) {
-        var vertices = shapes.map(line => line.centre());
-        return new Polygon(vertices, this.linewidth, shapes);
+    //get shape list from vertices
+    _getLines(vertices, linewidth) {
+        return vertices.reduce(
+            function(result, value, index, array) {
+                result.push(
+                    new Line (
+                        array[index % array.length],
+                        array[(index + 1) % array.length],
+                        linewidth,
+                    )
+                );
+                return result;
+            },
+            [],
+        );
     }
 
-    //return bbox of this (overrides compoundShape method because this way is faster)
+    //return clone of this with points in new position
+    clone(points, orientation) {
+        var vertices = [];
+        for (key in this.points) {
+            vertices.push(this.points[key]);
+        }
+        return new Polygon(vertices, this.linewidth, points);
+    }
+
+    //return bbox of this
     bbox() {
         if (this._bbox == undefined) {
             this._bbox =  new BBox(
@@ -57,7 +75,7 @@ export class Polygon extends CompoundShape {
         return this._bbox;
     }
 
-    //return centre of this (overrides compoundShape method because this way is faster)
+    //return centre of this
     centre() {
         if(this._centre == undefined) {
             this._centre = this.vertices.reduce(

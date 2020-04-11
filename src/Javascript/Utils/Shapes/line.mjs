@@ -9,7 +9,7 @@ export class Line extends Shape {
 
     //construct line from two position vectors
     constructor(pos1, pos2, width=20, orientation) {
-        super({pos1:pos1, pos2:pos2});
+        super({pos1:pos1, pos2:pos2}, {width: width});
         this.update();
 
         this.name = constants.LINE;

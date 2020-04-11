@@ -21,10 +21,10 @@ export class CompoundShapeTests extends Tests {
 		var shape = new CompoundShape([]);
 	}
 
-	test_polygon() {
+	test_polygon_is_compoundShape() {
 		this.assertEq(
-			this.polygon_fixture.poly_version.pentagon,
-			this.polygon_fixture.compound_shape_version.pentagon,
+			this.polygon_fixture.compound_shape_version.pentagon.shapes.join(""),
+			this.polygon_fixture.poly_version.pentagon.shapes.join(""),
 		)
 	}
 
