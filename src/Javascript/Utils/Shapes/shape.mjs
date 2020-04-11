@@ -96,14 +96,14 @@ export class Shape extends Base {
         var points = {};
         if (pivot == undefined) {
             for (var key in this.points) {
-                points[key] = rot.vMult(this.points[key])
+                points[key] = rot.vMult(this.points[key]);
             }
         }
         else {
             for (var key in this.points) {
                 points[key] = rot.vMult(
                     this.points[key].minus(pivot)
-                ).plus(pivot)
+                ).plus(pivot);
             }
         }
         return this.clone(points, this.orientation() + angle);

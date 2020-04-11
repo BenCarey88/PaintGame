@@ -7,26 +7,41 @@ import {CompoundShape} from './compoundShape.mjs';
 
 export class Polygon extends CompoundShape {
 
-    constructor(vertices, linewidth=10) {
-        var shapes = vertices.reduce(
-            function(result, value, index, array) {
-                result.push(
-                    new Line (
-                        array[index % array.length],
-                        array[(index + 1) % array.length],
-                        linewidth,
-                    )
-                );
-                return result;
-            },
-            [],
-        );
+    constructor(vertices, linewidth=10, shapes) {
+
+        if (shapes == undefined) {
+            var shapes = vertices.reduce(
+                function(result, value, index, array) {
+                    result.push(
+                        new Line (
+                            array[index % array.length],
+                            array[(index + 1) % array.length],
+                            linewidth,
+                        )
+                    );
+                    return result;
+                },
+                [],
+            );
+        }
         super(shapes);
 
         this.name = constants.POLYGON;
 
         this.vertices = vertices;
         this.linewidth = linewidth;
+    }
+
+    //update properties after rotation / translation
+    update() {
+        super.update();
+        this.vertices = this.shapes.map(line => line.centre());
+    }
+
+    //return clone of this with shapes (and hence points) in new position
+    clone(shapes) {
+        var vertices = shapes.map(line => line.centre());
+        return new Polygon(vertices, this.linewidth, shapes);
     }
 
     //return bbox of this (overrides compoundShape method because this way is faster)

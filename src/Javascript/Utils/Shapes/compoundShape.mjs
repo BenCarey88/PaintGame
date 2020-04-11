@@ -22,8 +22,8 @@ export class CompoundShape extends Base {
         this._centre = undefined;
     }
 
-    //reset properties after rotation / translation
-    reset() {
+    //update properties after rotation / translation
+    update() {
         this._bbox = undefined;
         this._centre = undefined;
     }
@@ -44,6 +44,11 @@ export class CompoundShape extends Base {
     //compare if bounding box of this overlaps bounding box of shape
     bboxCompare(shape) {
         return this.bbox().intersect(shape.bbox());
+    }
+
+    //return clone of this with shapes in new position
+    clone(shapes) {
+        return new CompoundShape(shapes)
     }
 
     //return bounding box
@@ -77,7 +82,7 @@ export class CompoundShape extends Base {
         for (var shape of this.shapes) {
             shapes.push(shape.translate(vec));
         }
-        return new CompoundShape(shapes);
+        return this.clone(shapes);
     }
 
     //translate this by vec
@@ -85,7 +90,7 @@ export class CompoundShape extends Base {
         for (var shape of this.shapes) {
             shape.translateEq(vec);
         }
-        this.reset();
+        this.update();
     }
 
     //return this rotated by angle about pivot (default: (0,0))
@@ -94,7 +99,7 @@ export class CompoundShape extends Base {
         for (var shape of this.shapes) {
             shapes.push(shape.rotate(angle, pivot))
         }
-        return new CompoundShape(shapes);
+        return this.clone(shapes);
     }
 
     //rotate this by angle about pivot (default: (0,0))
@@ -103,7 +108,7 @@ export class CompoundShape extends Base {
         for (var shape of this.shapes) {
             shape.rotateEq(angle, pivot);
         }
-        this.reset();
+        this.update();
     }
 
     //draw rectangle to ctx
