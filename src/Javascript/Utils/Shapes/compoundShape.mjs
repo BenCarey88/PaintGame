@@ -111,7 +111,7 @@ export class CompoundShape extends Base {
         this.update();
     }
 
-    //draw rectangle to ctx
+    //draw shape to ctx
     draw(ctx) {
         for(var shape of this.shapes) {
             shape.draw(ctx);

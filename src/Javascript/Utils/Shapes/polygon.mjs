@@ -85,6 +85,13 @@ export class Polygon extends Shape {
         return this._centre;
     }
 
+    //draw polygon to ctx
+    draw(ctx) {
+        for(var shape of this.shapes) {
+            shape.draw(ctx);
+        }
+    }
+
     //string representation
     string() {
         return (

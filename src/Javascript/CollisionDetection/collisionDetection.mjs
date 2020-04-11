@@ -108,11 +108,11 @@ export function collisionCircRect(circle, rect) {
     }
     //rect middle (length)
     else {
-        //rect top
+        //rect top half
         if (centre.y < (ymax + ymin) * 0.5) {
             return utils.greaterOrEq(centre.y + circle.rad, ymin);
         }
-        //rect bottom
+        //rect bottom half
         else {
             return utils.lessOrEq(centre.y - circle.rad, ymax);
         }
