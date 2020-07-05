@@ -1,6 +1,6 @@
 //Circle shape class
 
-import {constants} from '../constants.mjs';
+import {constants} from '../Utils/constants.mjs';
 import {BBox} from './bbox.mjs';
 import {Shape} from './shape.mjs';
 

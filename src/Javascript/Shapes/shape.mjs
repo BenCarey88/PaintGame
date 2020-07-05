@@ -1,9 +1,9 @@
 //Virtual base class for shapes
 
-import {print} from '../print.mjs';
-import {Base} from '../base.mjs';
-import {constants} from '../constants.mjs';
-import {Rotation} from '../Maths/index.mjs';
+import {print} from '../Utils/print.mjs';
+import {Base} from '../Utils/base.mjs';
+import {constants} from '../Utils/constants.mjs';
+import {Rotation} from '../Utils/Maths/index.mjs';
 
 export class Shape extends Base {
     

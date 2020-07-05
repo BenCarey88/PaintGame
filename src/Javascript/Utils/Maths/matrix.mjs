@@ -133,7 +133,7 @@ export class Matrix extends Base {
             return cofactorMat.sMult(1/this.det());
         }
         else {
-            print("Error: trying to invert invertible matrix");
+            throw new Error("trying to invert invertible matrix");
         }
     }
 

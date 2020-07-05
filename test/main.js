@@ -20,11 +20,14 @@ printColour("Utils", "orange")
     import {QuadraticTests} from './Utils/QuadraticTests/quadraticTests.mjs';
 	runTests(QuadraticTests, './Utils/QuadraticTests/quadraticTests.html');
 
-	import {ShapeTests} from './Utils/ShapeTests/shapeTests.mjs';
-	runTests(ShapeTests, './Utils/ShapeTests/shapeTests.html');
+newLine();
+printColour("Shapes", "orange")
 
-	import {CompoundShapeTests} from './Utils/CompoundShapeTests/compoundShapeTests.mjs'
-	runTests(CompoundShapeTests, './Utils/CompoundShapeTests/compoundShapeTests.html')
+	import {ShapeTests} from './Shapes/ShapeTests/shapeTests.mjs';
+	runTests(ShapeTests, './Shapes/ShapeTests/shapeTests.html');
+
+	import {CompoundShapeTests} from './Shapes/CompoundShapeTests/compoundShapeTests.mjs'
+	runTests(CompoundShapeTests, './Shapes/CompoundShapeTests/compoundShapeTests.html')
 
 newLine();
 printColour("Collisions", "orange")

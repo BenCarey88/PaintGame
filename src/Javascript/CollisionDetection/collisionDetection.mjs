@@ -1,5 +1,6 @@
 import {print, newLine} from '../Utils/print.mjs';
-import {utils, Line, Circle, Rect, BBox, constants} from '../Utils/index.mjs';
+import {utils,  constants} from '../Utils/index.mjs';
+import {Line, Circle, Rect, BBox} from '../Shapes/index.mjs';
 
 //check if circ1 intersects circ2
 export function collisionCircCirc(circ1, circ2) {

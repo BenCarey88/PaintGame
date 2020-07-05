@@ -1,7 +1,6 @@
 //Base class for all classes to inherit from, to allow some easy access custom functions
 
 import {print} from './print.mjs';
-import {constants} from './constants.mjs';
 import {utils} from './functionUtils.mjs';
 
 export class Base {

@@ -1,7 +1,7 @@
 //bbox class
 
-import {print} from '../print.mjs';
-import {Base} from '../base.mjs';
+import {print} from '../Utils/print.mjs';
+import {Base} from '../Utils/base.mjs';
 
 export class BBox extends Base {
     

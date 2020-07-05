@@ -57,6 +57,12 @@ export class MatrixTests extends Tests {
 		this.assertEq(m1.inverse(), m2);
 	}
 
+	test_inverse_error() {
+		this.expectError("trying to invert invertible matrix");
+		var m = new Matrix(1, 1, 1, 1);
+		m.inverse();
+	}
+
 	test_rotation() {
 		var r = new Rotation(Math.PI/6);
 		var m = new Matrix(

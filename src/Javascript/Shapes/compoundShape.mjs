@@ -1,10 +1,10 @@
 //Rectangle shape class
 
-import{print} from '../print.mjs';
-import {Base} from '../base.mjs';
-import {constants} from '../constants.mjs';
-import {Vector} from '../Maths/vector.mjs';
-import {Rotation} from '../Maths/rotation.mjs';
+import{print} from '../Utils/print.mjs';
+import {Base} from '../Utils/base.mjs';
+import {constants} from '../Utils/constants.mjs';
+import {Vector} from '../Utils/Maths/vector.mjs';
+import {Rotation} from '../Utils/Maths/rotation.mjs';
 import {BBox} from './bbox.mjs';
 
 export class CompoundShape extends Base {
