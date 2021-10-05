@@ -1,9 +1,10 @@
 //constants for paint game
 
 import {Vector} from './Maths/vector.mjs';
+import {TOLERANCE} from './functionUtils.mjs';
 
 export const constants = {
-    TOLERANCE: 0.0000001,
+    TOLERANCE: TOLERANCE,
 
     ZERO_VEC: new Vector(0, 0),
 
